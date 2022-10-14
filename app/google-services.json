@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660712272663",
+    "project_id": "monitoring-physical-activity",
+    "storage_bucket": "monitoring-physical-activity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660712272663:android:b9c7173858451454c7bd52",
+        "android_client_info": {
+          "package_name": "com.example.phisicalactivitymonitoringapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660712272663-c7t8or6ng3vmgveruucapmd2h8hdrqk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmvBd3r2w3iR9Dmvz_1k5oGwxRbjTa0ow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660712272663-c7t8or6ng3vmgveruucapmd2h8hdrqk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
