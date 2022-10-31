@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthSettings;
+import com.google.firebase.auth.FirebaseUser;
 
 //User do testowania
 //email: test@test.pl
@@ -93,12 +94,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     //REDIRECT TO USER PROFILE PAGE
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if(user.isEmailVerified()){
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    }else{
+                        user.sendEmailVerification();
+                        Toast.makeText(MainActivity.this,"Check your email to verify your account!",Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+
 
 
                 }
                 else{
                     Toast.makeText(MainActivity.this, "Login failed, check your credentials!", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
