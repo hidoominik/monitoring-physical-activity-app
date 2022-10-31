@@ -5,4 +5,5 @@
     <string name="ourappname_description">OurAppName description</string>
     <string name="username">Username</string>
     <string name="registerButton">Register user</string>
+    <string name="logout">Logout</string>
 </resources>
