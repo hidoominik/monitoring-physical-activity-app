@@ -6,4 +6,6 @@
     <string name="username">Username</string>
     <string name="registerButton">Register user</string>
     <string name="logout">Logout</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>
