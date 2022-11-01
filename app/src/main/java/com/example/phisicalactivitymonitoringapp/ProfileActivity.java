@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
-    private Button logoutButton;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
+        if(getSupportActionBar() !=null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //this make app crush NullPointerException
 
 
@@ -76,13 +76,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-//        logoutButton =(Button) findViewById(R.id.signOut);
-//        logoutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-//            }
-//        });
+
     }
 }
