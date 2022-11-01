@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
-
+        toolbar=findViewById(R.id.toolBar);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //this make app crush NullPointerException
 
 
         //Navigation logic:
