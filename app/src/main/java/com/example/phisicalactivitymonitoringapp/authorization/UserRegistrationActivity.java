@@ -1,7 +1,4 @@
-package com.example.phisicalactivitymonitoringapp;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.phisicalactivitymonitoringapp.authorization;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,16 +10,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
-    private TextView banner, registerUser;
+import com.example.phisicalactivitymonitoringapp.MainActivity;
+import com.example.phisicalactivitymonitoringapp.R;
+import com.example.phisicalactivitymonitoringapp.user.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class UserRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView banner, registerUser, backToLogin;
     private EditText editTextEmail, editTextUsername, editTextPassword;
     private ProgressBar progressBar;
 
@@ -31,7 +27,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
+        setContentView(R.layout.activity_user_registration);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -40,6 +36,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
+
+        backToLogin = (TextView) findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(this);
 
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextUsername = (EditText) findViewById(R.id.username);
@@ -57,6 +56,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.registerUser:
                 registerUser();
+                break;
+            case R.id.backToLogin:
+                startActivity(new Intent(this, UserLoginActivity.class));
         }
 
     }
@@ -96,12 +98,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         mAuth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                Toast.makeText(RegisterUser.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+                new User();
+                Toast.makeText(UserRegistrationActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
-                startActivity(new Intent(RegisterUser.this, MainActivity.class));
+                startActivity(new Intent(UserRegistrationActivity.this, MainActivity.class));
 
             }else{
-                Toast.makeText(RegisterUser.this, "Something went wrong...", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserRegistrationActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
             }
         });
