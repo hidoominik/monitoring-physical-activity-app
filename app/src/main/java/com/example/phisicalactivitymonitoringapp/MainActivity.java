@@ -8,12 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -22,7 +20,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
-import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 //User do testowania
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private Button signOut;
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
     @Override
@@ -70,14 +66,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
         if(getSupportActionBar() !=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //TODO: Trzeba pomyśleć jak byśmy chcieli to nav menu dodawać do innych aktywności, dziedziczymy chamsko po MainActivity, czy może jakiś lepszy sposob na wstrzykiwanie tego menu?
+        //TODO: Trzeba pomyśleć jak byśmy chcieli to nav menu dodawać do innych aktywności,
+        // dziedziczymy chamsko po MainActivity,
+        // czy może jakiś lepszy sposob na wstrzykiwanie tego menu?
         //Navigation logic:
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()){
@@ -111,8 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signOut();
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permissions granted!", Toast.LENGTH_SHORT).show();
             } else {
                 signOut();
