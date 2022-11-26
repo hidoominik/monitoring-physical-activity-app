@@ -1,5 +1,7 @@
 package com.example.phisicalactivitymonitoringapp;
 
+import static java.text.DateFormat.getDateInstance;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +23,25 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.common.api.DataBufferResponse;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Field;
+import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.fitness.result.DataReadResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 //User do testowania
 //email: chomczaq@gmail.com
@@ -31,12 +52,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    TextView stepNumber;
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+    private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
+
+    public static final String TAG = "StepCounter";
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -47,11 +72,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         if (!AuthService.ifUserIsLoggedIn()) {
             startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
-        }
-        else {
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (hasRuntimePermissions()) {
-                    //
+                    FitnessOptions fitnessOptions = FitnessOptions.builder().
+                            addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE).
+                            addDataType(DataType.TYPE_STEP_COUNT_DELTA).build();
+
+                    if (!GoogleSignIn.hasPermissions(
+                            GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+                        GoogleSignIn.requestPermissions(
+                                this,
+                                REQUEST_OAUTH_REQUEST_CODE,
+                                GoogleSignIn.getLastSignedInAccount(this),
+                                fitnessOptions);
+
+                    } else {
+                        subscribe();
+                        readData();/**/
+                    }
                 } else {
                     requestRuntimePermissions();
                 }
@@ -70,8 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        stepNumber = (TextView) findViewById(R.id.stepsNumber);
 
-        if(getSupportActionBar() !=null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //TODO: Trzeba pomyśleć jak byśmy chcieli to nav menu dodawać do innych aktywności,
@@ -79,18 +119,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // czy może jakiś lepszy sposob na wstrzykiwanie tego menu?
         //Navigation logic:
         navigationView.setNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_home:
-                    Log.i("MENU_DRAWER_TAG","Home item clicked");
+                    Log.i("MENU_DRAWER_TAG", "Home item clicked");
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.nav_search:
-                    Log.i("MENU_DRAWER_TAG","Search item clicked");
+                    Log.i("MENU_DRAWER_TAG", "Search item clicked");
                     //logic for search
                     break;
 
                 case R.id.nav_logout:
-                    Log.i("MENU_DRAWER_TAG","Logout item clicked");
+                    Log.i("MENU_DRAWER_TAG", "Logout item clicked");
                     signOut();
                     break;
             }
@@ -116,6 +156,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signOut();
             }
         }
+    }
+
+    public void subscribe() {
+        Fitness.getRecordingClient(this, Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(this)))
+                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                .addOnCompleteListener(
+                        task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Successfully subscribed!",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.w(TAG, "There was a problem subscribing.", task.getException());
+                                Toast.makeText(MainActivity.this, "There was a problem subscribing.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+    }
+
+    private void readData() {
+        Fitness.getHistoryClient(this, Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(this)))
+                .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
+                .addOnSuccessListener(
+                        dataSet -> {
+                            long total =
+                                    dataSet.isEmpty()
+                                            ? 0
+                                            : dataSet.getDataPoints().get(0).getValue(Field.FIELD_STEPS).asInt();
+                            Toast.makeText(MainActivity.this, "Total steps: " + total,
+                                    Toast.LENGTH_SHORT).show();
+
+
+                            if (dataSet.isEmpty())
+                                stepNumber.setText("0");
+                            else
+                                stepNumber.setText("Total steps: " + total);
+                        })
+                .addOnFailureListener(
+                        e -> Toast.makeText(MainActivity.this, "There was a problem getting the step count." + e,
+                                Toast.LENGTH_SHORT).show());
     }
 
     private boolean hasRuntimePermissions() {
@@ -149,8 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Manifest.permission.BODY_SENSORS,
                             Manifest.permission.ACTIVITY_RECOGNITION},
                     REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Requesting permission",
                     Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(MainActivity.this,

@@ -14,16 +14,19 @@ tools:context=".MainActivity">
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <EditText
-        android:id="@+id/editTextMainActivity"
+    <TextView
+        android:id="@+id/stepsNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Main activity layout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/stepsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stepsLabel"
+        app:layout_constraintEnd_toStartOf="@+id/stepsNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
