@@ -1,6 +1,7 @@
 package com.example.phisicalactivitymonitoringapp.authorization;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -50,9 +51,11 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.banner:
-                startActivity(new Intent(this, MainActivity.class));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    startActivity(new Intent(this, MainActivity.class));
+                }
                 break;
             case R.id.registerUser:
                 registerUser();
@@ -68,45 +71,46 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextEmail.setError("Provide valid email.");
             editTextEmail.requestFocus();
             return;
         }
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             editTextUsername.setError("Username is required");
             editTextUsername.requestFocus();
             return;
         }
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
             return;
         }
-        if(password.length() < 6){ //Firebase requirements, password.length >= 6
-            editTextPassword.setError("Password is length should minimum 6 characters.");
+        if (password.length() < 6) {
+            editTextPassword.setError("Password is length should minimum 6 characters");
             editTextPassword.requestFocus();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                new User();
-                Toast.makeText(UserRegistrationActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.GONE);
-                startActivity(new Intent(UserRegistrationActivity.this, MainActivity.class));
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        new User();
+                        Toast.makeText(UserRegistrationActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        startActivity(new Intent(UserRegistrationActivity.this,
+                                UserLoginActivity.class));
 
-            }else{
-                Toast.makeText(UserRegistrationActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                    } else {
+                        Toast.makeText(UserRegistrationActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 }
