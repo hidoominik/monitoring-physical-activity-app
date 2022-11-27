@@ -1,7 +1,5 @@
 package com.example.phisicalactivitymonitoringapp;
 
-import static java.text.DateFormat.getDateInstance;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,38 +12,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.core.app.ActivityCompat;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.common.api.DataBufferResponse;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
-import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.result.DataReadResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 //User do testowania
 //email: chomczaq@gmail.com
 //password: asdf77
+
+//Konto google do testowania
+//janrobak112@gmail.com
+//robak112
+
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

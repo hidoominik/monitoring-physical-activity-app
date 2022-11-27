@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,13 +16,16 @@ import com.example.phisicalactivitymonitoringapp.MainActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     private TextView banner, registerUser, backToLogin;
     private EditText editTextEmail, editTextUsername, editTextPassword;
     private ProgressBar progressBar;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,22 +33,22 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_user_registration);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
-        banner = (TextView) findViewById(R.id.banner);
+        banner = findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
-        registerUser = (Button) findViewById(R.id.registerUser);
+        registerUser = findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        backToLogin = (TextView) findViewById(R.id.backToLogin);
+        backToLogin = findViewById(R.id.backToLogin);
         backToLogin.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextUsername = (EditText) findViewById(R.id.username);
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextEmail = findViewById(R.id.email);
+        editTextUsername = findViewById(R.id.username);
+        editTextPassword = findViewById(R.id.password);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
+        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -71,6 +73,8 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
+//        Pewnie można by było skorzystać z jakiejś walidacji modelu za pomocą adnotacji jak w JPA albo innego mechanizmu,
+//         żeby samemu tego nie pisać, ale nie jest to priorytet
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -98,19 +102,29 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        new User();
-                        Toast.makeText(UserRegistrationActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                        startActivity(new Intent(UserRegistrationActivity.this,
-                                UserLoginActivity.class));
 
-                    } else {
-                        Toast.makeText(UserRegistrationActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
+        mDatabase.child(username).get().addOnCompleteListener(userSearchTask -> {
+            if (userSearchTask.getResult().exists()) {
+                finishProgressBarWithToast("User already exists in database");
+            } else {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(username, email))
+                                .addOnSuccessListener(databaseTaskSucceeded -> {
+                                    finishProgressBarWithToast("User has been registered successfully");
+                                    startActivity(new Intent(UserRegistrationActivity.this, UserLoginActivity.class));
+                                }).addOnFailureListener(databaseTaskFailed -> {
+//                                TODO: Dodać usuwanie usera z FirebaseAuth przy niepowodzeniu utworzenia go w RealtimeDatabase
+                                    finishProgressBarWithToast(databaseTaskFailed.getLocalizedMessage());
+                                }))
+                        .addOnFailureListener(authTaskFailed -> finishProgressBarWithToast(authTaskFailed.getLocalizedMessage()));
+            }
+        });
+
     }
+
+    private void finishProgressBarWithToast(String toastMessage) {
+        Toast.makeText(UserRegistrationActivity.this, toastMessage, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+    }
+
 }
