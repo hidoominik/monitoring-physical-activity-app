@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
+import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
@@ -120,7 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.i("MENU_DRAWER_TAG", "Search item clicked");
                     //logic for search
                     break;
-
+                case R.id.nav_profile:
+                    startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                    break;
                 case R.id.nav_logout:
                     Log.i("MENU_DRAWER_TAG", "Logout item clicked");
                     signOut();

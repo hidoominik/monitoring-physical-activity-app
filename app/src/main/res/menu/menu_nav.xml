@@ -7,6 +7,7 @@
     <group android:checkableBehavior="single">
         <item   android:title="Account:">
             <menu>
+                <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@drawable/search_icon"/>
                 <item android:id="@+id/nav_logout"  android:title="Logout" android:icon="@drawable/logout_icon"/>
             </menu>
         </item>
