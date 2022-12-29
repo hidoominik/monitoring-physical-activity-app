@@ -1,6 +1,7 @@
 package com.example.phisicalactivitymonitoringapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -22,14 +23,33 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.Bucket;
+import com.google.android.gms.fitness.data.DataPoint;
+import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
+import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 //User do testowania
 //email: chomczaq@gmail.com
@@ -42,15 +62,24 @@ import java.util.Objects;
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-    TextView stepNumber;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private TextView stepNumber;
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
 
     public static final String TAG = "StepCounter";
+
+    private final FitnessOptions fitnessOptions = FitnessOptions.builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_LOCATION_SAMPLE, FitnessOptions.ACCESS_READ)
+            .build();
+
+    private List<String> theDates = new ArrayList<>();
+    private List<Integer> totalAvgSteps = new ArrayList<>();
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -68,10 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (hasRuntimePermissions()) {
-                    FitnessOptions fitnessOptions = FitnessOptions.builder().
-                            addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE).
-                            addDataType(DataType.TYPE_STEP_COUNT_DELTA).build();
-
                     if (!GoogleSignIn.hasPermissions(
                             GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
                         GoogleSignIn.requestPermissions(
@@ -178,17 +203,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     dataSet.isEmpty()
                                             ? 0
                                             : dataSet.getDataPoints().get(0).getValue(Field.FIELD_STEPS).asInt();
-                            Toast.makeText(MainActivity.this, "Total steps: " + total,
-                                    Toast.LENGTH_SHORT).show();
 
+                            theDates = new ArrayList<>();
+                            totalAvgSteps = new ArrayList<>();
+                            invokeHistoryApiForWeeklySteps();
 
                             if (dataSet.isEmpty())
                                 stepNumber.setText("0");
-                            else
-                                stepNumber.setText("Total steps: " + total);
+                            else {
+                                stepNumber.setText("Today total steps: " + total);
+                            }
                         })
                 .addOnFailureListener(
-                        e -> Toast.makeText(MainActivity.this, "There was a problem getting the step count." + e,
+                        e -> Toast.makeText(MainActivity.this,
+                                "There was a problem getting the step count." + e,
                                 Toast.LENGTH_SHORT).show());
     }
 
@@ -243,5 +271,96 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 //    Na pewno przyda się onclick ;)
+    }
+
+    public void invokeHistoryApiForWeeklySteps() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        long endTime = cal.getTimeInMillis();
+
+        cal.add(Calendar.WEEK_OF_MONTH, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        long startTime = cal.getTimeInMillis();
+
+        DataSource ESTIMATED_STEP_DELTAS = new DataSource.Builder()
+                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                .setType(DataSource.TYPE_DERIVED)
+                .setStreamName("estimated_steps")
+                .setAppPackageName("com.google.android.gms")
+                .build();
+
+        DataReadRequest readRequest = new DataReadRequest.Builder()
+                .aggregate(ESTIMATED_STEP_DELTAS, DataType.AGGREGATE_STEP_COUNT_DELTA)
+                .bucketByTime(1, TimeUnit.DAYS)
+                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                .build();
+
+        Fitness
+                .getHistoryClient(this, GoogleSignIn
+                        .getAccountForExtension(this, fitnessOptions))
+                .readData(readRequest)
+                .addOnSuccessListener(response -> {
+
+                    for (Bucket bucket : response.getBuckets()) {
+                        long days = bucket.getStartTime(TimeUnit.MILLISECONDS);
+                        Date stepsDate = new Date(days);
+                        @SuppressLint("SimpleDateFormat")
+                        DateFormat df = new SimpleDateFormat("EEE");
+                        String weekday = df.format(stepsDate);
+
+                        theDates.add(weekday);
+                        bucket.getDataSets().forEach(dataSet ->
+                                totalAvgSteps.add(dumpDataSet(dataSet)));
+                    }
+                    Log.i(TAG, theDates.toString());
+                    Log.i(TAG, totalAvgSteps.toString());
+
+                    drawBarChart();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(MainActivity.this,
+                                "There was an error reading data from Google Fit" + e,
+                                Toast.LENGTH_SHORT).show());
+
+    }
+
+    public int dumpDataSet(DataSet dataSet) {
+        int totalSteps = 0;
+        for (DataPoint dp : dataSet.getDataPoints())
+            for (Field field : dp.getDataType().getFields())
+                totalSteps += dp.getValue(field).asInt();
+
+        return totalSteps;
+    }
+
+    public void drawBarChart() {
+        BarChart chart = findViewById(R.id.chart);
+
+        chart.invalidate();
+        chart.clear();
+
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(theDates));
+        xAxis.setLabelCount(7, true);
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < theDates.size(); i++) {
+            entries.add(new BarEntry(i, totalAvgSteps.get(i)));
+        }
+
+        BarDataSet dataSet = new BarDataSet(entries, "Weekly Data");
+        BarData data = new BarData(dataSet);
+        chart.setData(data);
+
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        chart.getDescription().setEnabled(false);
     }
 }
