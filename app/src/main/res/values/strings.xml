@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Phisical Activity Monitoring App</string>
+    <string name="app_name">Physical Activity Monitoring App</string>
     <string name="password">Password</string>
     <string name="email_address">Email Address</string>
     <string name="ourappname_description">OurAppName description</string>
