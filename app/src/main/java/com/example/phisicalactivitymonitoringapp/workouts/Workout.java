@@ -1,8 +1,5 @@
 package com.example.phisicalactivitymonitoringapp.workouts;
 
-import com.google.firebase.database.IgnoreExtraProperties;
-
-@IgnoreExtraProperties
 public class Workout {
 
     private String name;
@@ -14,6 +11,9 @@ public class Workout {
     private String endTime;
 
     private String username;
+
+    public Workout() {
+    }
 
     public Workout(String name, String date, String startTime, String endTime, String username) {
         this.name = name;

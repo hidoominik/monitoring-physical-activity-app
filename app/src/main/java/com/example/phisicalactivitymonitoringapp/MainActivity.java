@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.nav_add_workout:
                     startActivity(new Intent(MainActivity.this, AddWorkoutActivity.class));
                     break;
+                case R.id.nav_show_workouts:
+                    startActivity(new Intent(MainActivity.this, ShowWorkoutsActivity.class));
+                    break;
                 case R.id.nav_logout:
                     Log.i("MENU_DRAWER_TAG", "Logout item clicked");
                     signOut();
