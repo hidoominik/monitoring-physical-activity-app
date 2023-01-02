@@ -23,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
+import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -174,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.nav_profile:
                     startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                    break;
+                case R.id.nav_user_list:
+                    startActivity(new Intent(MainActivity.this, UserListActivity.class));
                     break;
                 case R.id.nav_add_workout:
                     startActivity(new Intent(MainActivity.this, AddWorkoutActivity.class));
