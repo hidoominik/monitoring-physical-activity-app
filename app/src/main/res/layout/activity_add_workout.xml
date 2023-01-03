@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Start Time"
         app:layout_constraintEnd_toStartOf="@+id/startTimeInput"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutDate" />
 
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="End Time"
         app:layout_constraintEnd_toStartOf="@+id/endTimeInput"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startTime" />
 
@@ -36,9 +38,10 @@
         android:id="@+id/workoutDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Workout Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/workoutPlace" />
 
     <EditText
         android:id="@+id/workoutNameInput"
@@ -53,12 +56,12 @@
         android:id="@+id/workoutDateInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:datePickerMode="spinner"
         android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/workoutDate"
-        app:layout_constraintTop_toBottomOf="@+id/workoutNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/workoutPlaceInput" />
 
     <TimePicker
         android:id="@+id/startTimeInput"
@@ -86,4 +89,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/workoutPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Workout Place"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutName" />
+
+    <EditText
+        android:id="@+id/workoutPlaceInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Workout Place"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutNameInput" />
 </androidx.constraintlayout.widget.ConstraintLayout>

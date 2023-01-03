@@ -38,11 +38,13 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         Workout workout = mWorkout.get(position);
 
         TextView nameTextView = holder.nameTextView;
+        TextView placeTextView = holder.placeTextView;
         TextView dateTextView = holder.dateTextView;
         TextView startTimeTextView = holder.startTimeTextView;
         TextView endTimeTextView = holder.endTimeTextView;
 
         nameTextView.setText(workout.getName());
+        placeTextView.setText(workout.getPlace());
         dateTextView.setText(workout.getDate());
         startTimeTextView.setText(workout.getStartTime());
         endTimeTextView.setText(workout.getEndTime());
@@ -55,6 +57,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
+        public TextView placeTextView;
         public TextView dateTextView;
         public TextView startTimeTextView;
         public TextView endTimeTextView;
@@ -63,6 +66,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
             super(itemView);
 
             nameTextView = (TextView) itemView.findViewById(R.id.workout_name);
+            placeTextView = (TextView) itemView.findViewById(R.id.workout_place);
             dateTextView = (TextView) itemView.findViewById(R.id.workout_date);
             startTimeTextView = (TextView) itemView.findViewById(R.id.workout_startTime);
             endTimeTextView = (TextView) itemView.findViewById(R.id.workout_endTime);

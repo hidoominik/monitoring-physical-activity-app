@@ -38,11 +38,13 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
     private DatabaseReference workouts;
 
     private EditText workoutName;
+    private EditText workoutPlace;
     private DatePicker workoutDate;
     private TimePicker startTime;
     private TimePicker endTime;
 
     private TextView workoutNameLabel;
+    private TextView workoutPlaceLabel;
 
     private Button createButton;
 
@@ -58,11 +60,13 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
         workouts = database.getReference("Workouts");
 
         workoutName = findViewById(R.id.workoutNameInput);
+        workoutPlace = findViewById(R.id.workoutPlaceInput);
         workoutDate = findViewById(R.id.workoutDateInput);
         startTime = findViewById(R.id.startTimeInput);
         endTime = findViewById(R.id.endTimeInput);
 
         workoutNameLabel = findViewById(R.id.workoutName);
+        workoutPlaceLabel = findViewById(R.id.workoutPlace);
 
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(this);
@@ -81,6 +85,7 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void addWorkout() {
         String workoutNameValue = workoutName.getText().toString().trim();
+        String workoutPlaceValue = workoutPlace.getText().toString().trim();
         String workoutDateValue = workoutDate.getDayOfMonth() + "-" + workoutDate.getMonth()
                 + "-" + workoutDate.getYear();
         String startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
@@ -89,6 +94,12 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
         if (workoutNameValue.isEmpty()) {
             workoutNameLabel.setError("Workout name is required");
             workoutNameLabel.requestFocus();
+            return;
+        }
+
+        if (workoutPlaceValue.isEmpty()) {
+            workoutPlaceLabel.setError("Workout place is required");
+            workoutPlaceLabel.requestFocus();
             return;
         }
 
@@ -103,6 +114,7 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
                             workouts.child(Objects.requireNonNull(workouts.push().getKey())).setValue(
                                             new Workout(
                                                     workoutNameValue,
+                                                    workoutPlaceValue,
                                                     workoutDateValue,
                                                     startTimeValue,
                                                     endTimeValue,

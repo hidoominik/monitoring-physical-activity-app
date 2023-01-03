@@ -4,6 +4,8 @@ public class Workout {
 
     private String name;
 
+    private String place;
+
     private String date;
 
     private String startTime;
@@ -15,8 +17,10 @@ public class Workout {
     public Workout() {
     }
 
-    public Workout(String name, String date, String startTime, String endTime, String username) {
+    public Workout(String name, String place, String date, String startTime, String endTime,
+                   String username) {
         this.name = name;
+        this.place = place;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -29,6 +33,14 @@ public class Workout {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getDate() {
