@@ -178,6 +178,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permissions granted!", Toast.LENGTH_SHORT).show();
+                if (!GoogleSignIn.hasPermissions(
+                        GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+                    GoogleSignIn.requestPermissions(
+                            this,
+                            REQUEST_OAUTH_REQUEST_CODE,
+                            GoogleSignIn.getLastSignedInAccount(this),
+                            fitnessOptions);
+                } else {
+                    subscribe();
+                    readData();/**/
+                }
             } else {
                 signOut();
             }
