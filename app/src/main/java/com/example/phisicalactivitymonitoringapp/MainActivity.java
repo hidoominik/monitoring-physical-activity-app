@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +44,13 @@ import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -66,9 +70,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private TextView stepNumber;
+    private TextView previousDate;
+    private TextView nextDate;
+
+    private Button previousButton;
+    private Button nextButton;
+
+    private int mDays = 0;
+
+    private Date myDate = new Date();
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
+
+    private int clickCount = 0;
 
     public static final String TAG = "StepCounter";
 
@@ -107,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     } else {
                         subscribe();
-                        readData();/**/
+                        readData(mDays);
                     }
                 } else {
                     requestRuntimePermissions();
@@ -128,6 +143,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         stepNumber = (TextView) findViewById(R.id.stepsNumber);
+        previousDate = findViewById(R.id.previous_date);
+        nextDate = findViewById(R.id.next_date);
+
+        previousDate.setText(formatDate(addDays(myDate, -7)));
+        nextDate.setText(formatDate(addDays(myDate, -1)));
+
+        previousButton = findViewById(R.id.previous_button);
+        nextButton = findViewById(R.id.next_button);
+
+        previousButton.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -162,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return true;
         });
-
     }
 
     @Override
@@ -187,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             fitnessOptions);
                 } else {
                     subscribe();
-                    readData();/**/
+                    readData(mDays);
                 }
             } else {
                 signOut();
@@ -211,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
     }
 
-    private void readData() {
+    private void readData(int daysValue) {
         Fitness.getHistoryClient(this, Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(this)))
                 .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
                 .addOnSuccessListener(
@@ -223,7 +248,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             theDates = new ArrayList<>();
                             totalAvgSteps = new ArrayList<>();
-                            invokeHistoryApiForWeeklySteps();
+                            try {
+                                invokeHistoryApiForWeeklySteps(daysValue);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
                             if (dataSet.isEmpty())
                                 stepNumber.setText("0");
@@ -287,12 +316,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-//    Na pewno przyda się onclick ;)
+        if (view.getId() == R.id.previous_button) {
+            mDays -= 7;
+            readData(mDays);
+            clickCount++;
+        }
+        else if (view.getId() == R.id.next_button) {
+            mDays += 7;
+            readData(mDays);
+            clickCount--;
+        }
+        previousDate.setText(formatDate(addDays(new Date(), (-1) * (clickCount + 1) * 7)));
+        nextDate.setText(formatDate(addDays(new Date(), ((-1) * ((clickCount) * 7)) - 1)));
+
+        nextButton.setEnabled(mDays != 7);
     }
 
-    public void invokeHistoryApiForWeeklySteps() {
+    public void invokeHistoryApiForWeeklySteps(int daysValue) throws ParseException {
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
+
+        myDate = addDays(new Date(), daysValue);
+        cal.setTime(Objects.requireNonNull(myDate));
+
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -379,5 +424,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
         chart.getDescription().setEnabled(false);
+    }
+
+    public Date addDays(Date date, int days)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+        return cal.getTime();
+    }
+
+    public String formatDate(Date date)
+    {
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        return formatter.format(date);
     }
 }
