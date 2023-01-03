@@ -1,12 +1,16 @@
 package com.example.phisicalactivitymonitoringapp.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.phisicalactivitymonitoringapp.DeleteAccountActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,11 +22,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private TextView usernameTextView;
+    private Button deleteButton;
 
     private DatabaseReference mDatabase;
 
@@ -34,6 +39,8 @@ public class UserProfileActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
         usernameTextView = findViewById(R.id.username);
+        deleteButton = findViewById(R.id.go_to_delete_button);
+        deleteButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -54,6 +61,13 @@ public class UserProfileActivity extends AppCompatActivity {
                     Log.d("TAG", error.getMessage());
                 }
             });
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.go_to_delete_button) {
+            startActivity(new Intent(this, DeleteAccountActivity.class));
         }
     }
 }
