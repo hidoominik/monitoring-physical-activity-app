@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -73,8 +77,6 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-//        Pewnie można by było skorzystać z jakiejś walidacji modelu za pomocą adnotacji jak w JPA albo innego mechanizmu,
-//         żeby samemu tego nie pisać, ale nie jest to priorytet
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -95,17 +97,48 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
             editTextPassword.requestFocus();
             return;
         }
-        if (password.length() < 6) {
-            editTextPassword.setError("Password is length should minimum 6 characters");
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String USERNAME_PATTERN = "(^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\\d.-]{4,45}$)";
+
+        pattern = Pattern.compile(USERNAME_PATTERN);
+        matcher = pattern.matcher(username);
+
+        if (!matcher.matches()) {
+            editTextUsername.setError("Wrong username - create username 4-45 with letters, numbers or - char");
+            editTextUsername.requestFocus();
+            return;
+        }
+
+        final String PASSWORD_PATTERN = "(^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\\d.-]{4,45}$)";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        if (!matcher.matches()) {
+            editTextPassword.setError("Wrong password - create password 4-45 with letters, numbers or - char");
             editTextPassword.requestFocus();
             return;
         }
+
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+            boolean isNewUser = Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty();
+
+            if (!isNewUser) {
+                editTextEmail.setError("Choose different email");
+                editTextEmail.requestFocus();
+            }
+        });
 
         progressBar.setVisibility(View.VISIBLE);
 
         mDatabase.child(username).get().addOnCompleteListener(userSearchTask -> {
             if (userSearchTask.getResult().exists()) {
                 finishProgressBarWithToast("User already exists in database");
+                editTextUsername.setError("User already exists in database");
+                editTextUsername.requestFocus();
             } else {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(username, email))
@@ -119,7 +152,6 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                         .addOnFailureListener(authTaskFailed -> finishProgressBarWithToast(authTaskFailed.getLocalizedMessage()));
             }
         });
-
     }
 
     private void finishProgressBarWithToast(String toastMessage) {
