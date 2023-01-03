@@ -1,6 +1,7 @@
 package com.example.phisicalactivitymonitoringapp.authorization;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.phisicalactivitymonitoringapp.MainActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,7 +52,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.register:
                 startActivity(new Intent(this, UserRegistrationActivity.class));
                 break;
@@ -66,41 +69,36 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
             return;
         }
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             editTextPassword.setError("Password is required");
-            editTextPassword.requestFocus();
-            return;
-
-        }
-        if(password.length() < 6){
-            editTextPassword.setError("Min password length is 6 characters!");
             editTextPassword.requestFocus();
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
+            if (task.isSuccessful()) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user.isEmailVerified()){
-                    startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
-                }else{
+                if (Objects.requireNonNull(user).isEmailVerified()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
+                    }
+                } else {
                     user.sendEmailVerification();
-                    Toast.makeText(UserLoginActivity.this,"Check your email to verify your account!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserLoginActivity.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(UserLoginActivity.this, "Login failed, check your credentials!", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
             }
