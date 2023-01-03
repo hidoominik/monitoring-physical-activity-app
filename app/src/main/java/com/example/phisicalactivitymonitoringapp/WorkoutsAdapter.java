@@ -106,8 +106,6 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
 
     public void removeAt(int position) {
         String key = mKey.get(position);
-        System.out.println(key);
-        System.out.println(mWorkout.get(position).getKey());
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Workouts");
         ref.child(key).removeValue();
         mKey.remove(position);

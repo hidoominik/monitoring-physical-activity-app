@@ -76,6 +76,8 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    keyList.clear();
+                                    workoutList.clear();
                                     for (DataSnapshot ds : snapshot.getChildren()) {
                                         keyList.add(Objects.requireNonNull(ds.getValue(Workout.class)).getKey());
                                         workoutList.add(ds.getValue(Workout.class));
