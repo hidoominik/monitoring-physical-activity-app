@@ -16,6 +16,7 @@ import com.example.phisicalactivitymonitoringapp.MainActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -144,6 +145,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                         .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(username, email))
                                 .addOnSuccessListener(databaseTaskSucceeded -> {
                                     finishProgressBarWithToast("User has been registered successfully");
+                                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).sendEmailVerification();
                                     startActivity(new Intent(UserRegistrationActivity.this, UserLoginActivity.class));
                                 }).addOnFailureListener(databaseTaskFailed -> {
 //                                TODO: Dodać usuwanie usera z FirebaseAuth przy niepowodzeniu utworzenia go w RealtimeDatabase
