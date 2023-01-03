@@ -4,21 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phisicalactivitymonitoringapp.workouts.Workout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHolder> {
 
     private List<Workout> mWorkout;
+    private List<String> mKey;
 
-    public WorkoutsAdapter(List<Workout> workouts) {
+    public WorkoutsAdapter(List<Workout> workouts, List<String> keys) {
         mWorkout = workouts;
+        mKey = keys;
     }
 
     @NonNull
@@ -55,12 +60,16 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         return mWorkout.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public TextView nameTextView;
         public TextView placeTextView;
         public TextView dateTextView;
         public TextView startTimeTextView;
         public TextView endTimeTextView;
+
+        public Button editButton;
+        public Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -70,11 +79,40 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
             dateTextView = (TextView) itemView.findViewById(R.id.workout_date);
             startTimeTextView = (TextView) itemView.findViewById(R.id.workout_startTime);
             endTimeTextView = (TextView) itemView.findViewById(R.id.workout_endTime);
+
+            editButton = itemView.findViewById(R.id.edit_button);
+            deleteButton = itemView.findViewById(R.id.delete_button);
+
+            editButton.setOnClickListener(this);
+            deleteButton.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.equals(editButton)) {
+                System.out.println("EDIT " + getAdapterPosition());
+            }
+            else if (v.equals(deleteButton)) {
+                removeAt(getAdapterPosition());
+            }
         }
     }
 
-    public void setWorkoutList(List<Workout> workoutList) {
+    public void setWorkoutListAndKeyList(List<Workout> workoutList, List<String> keyList) {
         this.mWorkout = workoutList;
+        this.mKey = keyList;
         notifyDataSetChanged();
+    }
+
+    public void removeAt(int position) {
+        String key = mKey.get(position);
+        System.out.println(key);
+        System.out.println(mWorkout.get(position).getKey());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Workouts");
+        ref.child(key).removeValue();
+        mKey.remove(position);
+        mWorkout.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mWorkout.size());
     }
 }

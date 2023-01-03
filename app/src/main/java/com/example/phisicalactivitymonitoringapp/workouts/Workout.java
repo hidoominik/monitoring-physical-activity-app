@@ -2,6 +2,8 @@ package com.example.phisicalactivitymonitoringapp.workouts;
 
 public class Workout {
 
+    private String key;
+
     private String name;
 
     private String place;
@@ -17,14 +19,23 @@ public class Workout {
     public Workout() {
     }
 
-    public Workout(String name, String place, String date, String startTime, String endTime,
-                   String username) {
+    public Workout(String key, String name, String place, String date, String startTime,
+                   String endTime, String username) {
+        this.key = key;
         this.name = name;
         this.place = place;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.username = username;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {

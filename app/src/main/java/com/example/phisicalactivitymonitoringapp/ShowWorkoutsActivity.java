@@ -21,16 +21,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShowWorkoutsActivity extends AppCompatActivity {
 
     private List<Workout> workoutList;
+    private List<String> keyList;
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     FirebaseDatabase database;
     DatabaseReference users;
     DatabaseReference workouts;
+
+    RecyclerView rvWorkouts;
 
     WorkoutsAdapter adapter;
 
@@ -40,6 +44,7 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_workouts);
 
         workoutList = new ArrayList<>();
+        keyList = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -47,9 +52,9 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
         users = database.getReference("Users");
         workouts = database.getReference("Workouts");
 
-        RecyclerView rvWorkouts = (RecyclerView) findViewById(R.id.rvWorkouts);
+        rvWorkouts = (RecyclerView) findViewById(R.id.rvWorkouts);
 
-        adapter = new WorkoutsAdapter(workoutList);
+        adapter = new WorkoutsAdapter(workoutList, keyList);
 
         rvWorkouts.setAdapter(adapter);
         createWorkoutsList();
@@ -72,8 +77,9 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot ds : snapshot.getChildren()) {
+                                        keyList.add(Objects.requireNonNull(ds.getValue(Workout.class)).getKey());
                                         workoutList.add(ds.getValue(Workout.class));
-                                        adapter.setWorkoutList(workoutList);
+                                        adapter.setWorkoutListAndKeyList(workoutList, keyList);
                                     }
                                 }
 

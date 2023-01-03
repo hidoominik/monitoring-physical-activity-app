@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.example.phisicalactivitymonitoringapp.workouts.Workout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,8 +75,6 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.createButton) {
-            System.out.println("AAAAAAAA");
-            Log.d("AAAA", "AAAAAAA");
             addWorkout();
         }
     }
@@ -111,8 +108,10 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
                     for (DataSnapshot child : snapshot.getChildren()) {
                         User user = child.getValue(User.class);
                         if (user != null) {
-                            workouts.child(Objects.requireNonNull(workouts.push().getKey())).setValue(
+                            String key = workouts.push().getKey();
+                            workouts.child(Objects.requireNonNull(key)).setValue(
                                             new Workout(
+                                                    key,
                                                     workoutNameValue,
                                                     workoutPlaceValue,
                                                     workoutDateValue,
