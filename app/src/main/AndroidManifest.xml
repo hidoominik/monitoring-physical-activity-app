@@ -18,6 +18,13 @@
         android:theme="@style/Theme.PhisicalActivityMonitoringApp"
         tools:targetApi="31">
         <activity
+            android:name=".EditDataActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DeleteAccountActivity"
             android:exported="false">
             <meta-data

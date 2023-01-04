@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phisicalactivitymonitoringapp.DeleteAccountActivity;
+import com.example.phisicalactivitymonitoringapp.EditDataActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +28,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private TextView usernameTextView;
+    private TextView weight;
+    private TextView height;
     private Button deleteButton;
+    private Button editButton;
 
     private DatabaseReference mDatabase;
 
@@ -39,8 +43,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
         usernameTextView = findViewById(R.id.username);
+        weight = findViewById(R.id.weight_value);
+        height = findViewById(R.id.height_value);
         deleteButton = findViewById(R.id.go_to_delete_button);
-        deleteButton.setOnClickListener(this);
+        editButton = findViewById(R.id.go_to_edit_button);
+        editButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -51,8 +58,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot child : snapshot.getChildren()) {
                         User user = child.getValue(User.class);
-                        if (user != null)
+                        if (user != null) {
                             usernameTextView.setText(user.getUsername());
+                            weight.setText(user.getWeight());
+                            height.setText(user.getHeight());
+                        }
                     }
                 }
 
@@ -68,6 +78,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.go_to_delete_button) {
             startActivity(new Intent(this, DeleteAccountActivity.class));
+        }
+        else if (v.getId() == R.id.go_to_edit_button) {
+            startActivity(new Intent(this, EditDataActivity.class));
         }
     }
 }
