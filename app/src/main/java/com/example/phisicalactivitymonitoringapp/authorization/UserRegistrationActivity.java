@@ -142,7 +142,7 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                 editTextUsername.requestFocus();
             } else {
                 mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(null, null, username, email))
+                        .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(username, email, null, null))
                                 .addOnSuccessListener(databaseTaskSucceeded -> {
                                     finishProgressBarWithToast("User has been registered successfully");
                                     Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).sendEmailVerification();

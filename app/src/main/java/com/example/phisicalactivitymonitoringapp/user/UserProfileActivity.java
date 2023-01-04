@@ -59,9 +59,18 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                     for (DataSnapshot child : snapshot.getChildren()) {
                         User user = child.getValue(User.class);
                         if (user != null) {
+
                             usernameTextView.setText(user.getUsername());
-                            weight.setText(user.getWeight());
-                            height.setText(user.getHeight());
+
+                            if (user.getWeight() == null)
+                                weight.setText("No data");
+                            else
+                                weight.setText(user.getWeight());
+
+                            if (user.getWeight() == null)
+                                height.setText("No data");
+                            else
+                                height.setText(user.getHeight());
                         }
                     }
                 }
