@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_home" android:title="Home" android:icon="@drawable/home_icon"/>
-        <item android:id="@+id/nav_search" android:title="Search" android:icon="@drawable/search_icon"/>
+        <item android:id="@+id/nav_home" android:title="@string/home" android:icon="@drawable/home_icon"/>
+        <item android:id="@+id/nav_search" android:title="@string/search" android:icon="@drawable/search_icon"/>
     </group>
     <group android:checkableBehavior="single">
-        <item   android:title="Account:">
+        <item   android:title="@string/account">
             <menu>
-                <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@drawable/search_icon"/>
+                <item android:id="@+id/nav_profile" android:title="@string/profile" android:icon="@drawable/search_icon"/>
                 <item android:id="@+id/nav_user_list" android:title="User List" android:icon="@drawable/search_icon"/>
-                <item android:id="@+id/nav_add_workout" android:title="Add Workout" android:icon="@drawable/search_icon"/>
-                <item android:id="@+id/nav_show_workouts" android:title="Show Workouts" android:icon="@drawable/search_icon"/>
-                <item android:id="@+id/nav_logout"  android:title="Logout" android:icon="@drawable/logout_icon"/>
+                <item android:id="@+id/nav_add_workout" android:title="@string/add_workout" android:icon="@drawable/search_icon"/>
+                <item android:id="@+id/nav_show_workouts" android:title="@string/show_workouts" android:icon="@drawable/search_icon"/>
+                <item android:id="@+id/nav_logout"  android:title="@string/logout" android:icon="@drawable/logout_icon"/>
             </menu>
         </item>
 

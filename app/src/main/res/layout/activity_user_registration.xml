@@ -84,7 +84,7 @@
         android:id="@+id/backToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to login"
+        android:text="@string/back_to_login"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

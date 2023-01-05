@@ -89,7 +89,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#E31B93"
-        android:text="DELETE"
+        android:text="@string/delete"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
