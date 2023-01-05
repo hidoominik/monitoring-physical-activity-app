@@ -1,63 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/browser_actions_bg_grey"
     android:layout_margin="40dp"
-    android:padding="40dp"
-    >
+    android:background="@color/browser_actions_bg_grey"
+    android:bottomLeftRadius="7dp"
+    android:bottomRightRadius="7dp"
+    android:topLeftRadius="7dp"
+    android:topRightRadius="7dp"
+    app:circularflow_radiusInDP="7dp">
+
 
     <TextView
         android:id="@+id/workout_name"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_marginTop="24dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/workout_place"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workout_name" />
 
     <TextView
         android:id="@+id/workout_date"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workout_place" />
 
     <TextView
         android:id="@+id/workout_startTime"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workout_date" />
 
     <TextView
         android:id="@+id/workout_endTime"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workout_startTime" />
 
     <Button
         android:id="@+id/edit_button"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#03dac5"
         android:text="EDIT"
-        />
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workout_endTime" />
 
     <Button
         android:id="@+id/delete_button"
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="DELETE"
-        />
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#E31B93"
+        android:text="@string/delete"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_button" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
