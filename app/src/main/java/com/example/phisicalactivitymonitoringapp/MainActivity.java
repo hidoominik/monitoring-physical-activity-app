@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (dataSet.isEmpty())
                                 stepNumber.setText("0");
                             else {
-                                stepNumber.setText((int) total);
+                                stepNumber.setText(String.valueOf(total));
                             }
                         })
                 .addOnFailureListener(
