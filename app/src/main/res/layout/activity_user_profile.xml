@@ -18,8 +18,11 @@
             android:id="@+id/profileImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginTop="36dp"
+
             android:src="@drawable/user_placeholder"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,28 +30,37 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
+            android:text="username"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
         <Button
             android:id="@+id/go_to_delete_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#E31B93"
             android:text="DELETE ACCOUNT"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#ffffff"
+            android:textSize="23sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/go_to_edit_button" />
 
         <TextView
             android:id="@+id/weight_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weight"
-            app:layout_constraintEnd_toStartOf="@+id/weight_value"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="24dp"
+            android:text="Weight: "
+            android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -56,15 +68,23 @@
             android:id="@+id/weight_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="72dp"
+            android:text="weight_v"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.959"
+            app:layout_constraintStart_toEndOf="@+id/weight_label"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
         <TextView
             android:id="@+id/height_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Height"
-            app:layout_constraintEnd_toStartOf="@+id/height_value"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="20dp"
+            android:text="Height: "
+            android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weight_label" />
 
@@ -72,16 +92,25 @@
             android:id="@+id/height_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="72dp"
+            android:text="height_v"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.963"
+            app:layout_constraintStart_toEndOf="@+id/height_label"
             app:layout_constraintTop_toBottomOf="@+id/weight_value" />
 
         <Button
             android:id="@+id/go_to_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="152dp"
             android:text="Edit data"
-            app:layout_constraintBottom_toTopOf="@+id/go_to_delete_button"
+            android:textColor="#ffffff"
+            android:textSize="23sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/height_label" />
 
