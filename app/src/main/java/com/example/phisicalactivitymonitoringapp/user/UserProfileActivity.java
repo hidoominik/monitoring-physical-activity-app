@@ -48,6 +48,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         deleteButton = findViewById(R.id.go_to_delete_button);
         editButton = findViewById(R.id.go_to_edit_button);
         editButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -89,7 +90,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(this, DeleteAccountActivity.class));
         }
         else if (v.getId() == R.id.go_to_edit_button) {
-            startActivity(new Intent(this, EditDataActivity.class));
+            Intent intent = new Intent(this, EditDataActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         }
     }
 }

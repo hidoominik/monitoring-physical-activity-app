@@ -46,11 +46,18 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
     private TextView workoutPlaceLabel;
 
     private Button createButton;
+    private Button editButton;
+
+    private String key = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            key = extras.getString("key");
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -69,6 +76,57 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
 
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(this);
+
+        editButton = findViewById(R.id.edit_workout_button);
+        editButton.setOnClickListener(this);
+
+        if (key != null) {
+            createButton.setVisibility(View.GONE);
+            editButton.setVisibility(View.VISIBLE);
+
+            DatabaseReference workoutsReference = workouts.child(key);
+            workoutsReference.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Workout workout = snapshot.getValue(Workout.class);
+                    if (workout != null) {
+                        workoutName.setText(workout.getName());
+                        workoutPlace.setText(workout.getPlace());
+
+                        String[] str = Objects.requireNonNull(workout.getDate()).split("-");
+                        int day = Integer.parseInt(str[0]);
+                        int month = Integer.parseInt(str[1]) - 1;
+                        int year = Integer.parseInt(str[2]);
+
+                        workoutDate.init(year, month, day, null);
+
+                        String[] str2 = Objects.requireNonNull(workout.getStartTime()).split(":");
+                        int hour = Integer.parseInt(str2[0]);
+                        int minute = Integer.parseInt(str2[1]);
+
+                        startTime.setCurrentHour(hour);
+                        startTime.setCurrentMinute(minute);
+
+                        String[] str3 = Objects.requireNonNull(workout.getEndTime()).split(":");
+                        hour = Integer.parseInt(str3[0]);
+                        minute = Integer.parseInt(str3[1]);
+
+                        endTime.setCurrentHour(hour);
+                        endTime.setCurrentMinute(minute);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w("ERROR", "listener canceled", error.toException());
+                }
+            });
+        }
+        else {
+            createButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.GONE);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -77,13 +135,16 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
         if (view.getId() == R.id.createButton) {
             addWorkout();
         }
+        else if (view.getId() == R.id.edit_workout_button) {
+            editData(key);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void addWorkout() {
         String workoutNameValue = workoutName.getText().toString().trim();
         String workoutPlaceValue = workoutPlace.getText().toString().trim();
-        String workoutDateValue = workoutDate.getDayOfMonth() + "-" + workoutDate.getMonth()
+        String workoutDateValue = workoutDate.getDayOfMonth() + "-" + (workoutDate.getMonth() + 1)
                 + "-" + workoutDate.getYear();
         String startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
         String endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
@@ -119,7 +180,10 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
                                                     endTimeValue,
                                                     user.getUsername()))
                                     .addOnSuccessListener(databaseTaskSucceeded -> {
-                                        startActivity(new Intent(AddWorkoutActivity.this, AddWorkoutActivity.class));
+                                        Intent intent = new Intent(AddWorkoutActivity.this, AddWorkoutActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
                                     }).addOnFailureListener(databaseTaskFailed -> {
                                         //
                                     });
@@ -133,5 +197,38 @@ public class AddWorkoutActivity extends AppCompatActivity implements View.OnClic
                 }
             });
         }
+    }
+
+    public void editData(String mKey) {
+        String workoutNameValue = workoutName.getText().toString().trim();
+        String workoutPlaceValue = workoutPlace.getText().toString().trim();
+        String workoutDateValue = workoutDate.getDayOfMonth() + "-" + (workoutDate.getMonth() + 1)
+                + "-" + workoutDate.getYear();
+        String startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
+        String endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+
+        if (workoutNameValue.isEmpty()) {
+            workoutNameLabel.setError("Workout name is required");
+            workoutNameLabel.requestFocus();
+            return;
+        }
+
+        if (workoutPlaceValue.isEmpty()) {
+            workoutPlaceLabel.setError("Workout place is required");
+            workoutPlaceLabel.requestFocus();
+            return;
+        }
+
+        DatabaseReference workoutReference = workouts.child(mKey);
+        workoutReference.child("name").setValue(workoutNameValue);
+        workoutReference.child("place").setValue(workoutPlaceValue);
+        workoutReference.child("date").setValue(workoutDateValue);
+        workoutReference.child("startTime").setValue(startTimeValue);
+        workoutReference.child("endTime").setValue(endTimeValue);
+
+        Intent intent = new Intent(this, ShowWorkoutsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

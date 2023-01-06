@@ -1,6 +1,7 @@
 package com.example.phisicalactivitymonitoringapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
 
     private List<Workout> mWorkout;
     private List<String> mKey;
+
+    private String key;
 
     public WorkoutsAdapter(List<Workout> workouts, List<String> keys) {
         mWorkout = workouts;
@@ -90,7 +93,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if (v.equals(editButton)) {
-                System.out.println("EDIT " + getAdapterPosition());
+                editAt(v, getAdapterPosition());
             }
             else if (v.equals(deleteButton)) {
                 removeAt(getAdapterPosition());
@@ -112,5 +115,13 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         mWorkout.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mWorkout.size());
+    }
+
+    public void editAt(View v, int position) {
+        key = mKey.get(position);
+
+        Intent intent = new Intent(v.getContext(), AddWorkoutActivity.class);
+        intent.putExtra("key", key);
+        v.getContext().startActivity(intent);
     }
 }

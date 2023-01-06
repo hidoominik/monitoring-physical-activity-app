@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         if (!AuthService.ifUserIsLoggedIn()) {
-            startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
+            Intent intent = new Intent(MainActivity.this, UserLoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (hasRuntimePermissions()) {
@@ -230,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(
                         task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Successfully subscribed!",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(MainActivity.this, "Successfully subscribed!",
+//                                        Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.w(TAG, "There was a problem subscribing.", task.getException());
                                 Toast.makeText(MainActivity.this, "There was a problem subscribing.",

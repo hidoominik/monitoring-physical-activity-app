@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phisicalactivitymonitoringapp.MainActivity;
 import com.example.phisicalactivitymonitoringapp.R;
+import com.example.phisicalactivitymonitoringapp.ShowWorkoutsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -91,7 +92,10 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (Objects.requireNonNull(user).isEmailVerified()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
+                        Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
                     }
                 } else {
                     user.sendEmailVerification();

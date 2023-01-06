@@ -139,7 +139,10 @@ public class DeleteAccountActivity extends AppCompatActivity implements View.OnC
         AuthService.signOut();
         finishAffinity();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startActivity(new Intent(DeleteAccountActivity.this, MainActivity.class));
+            Intent intent = new Intent(DeleteAccountActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         }
     }
 }
