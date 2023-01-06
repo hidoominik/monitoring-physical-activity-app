@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -177,16 +178,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //logic for search
                     break;
                 case R.id.nav_profile:
-                    startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                    startActivity(new Intent(this, UserProfileActivity.class));
                     break;
                 case R.id.nav_user_list:
-                    startActivity(new Intent(MainActivity.this, UserListActivity.class));
+                    startActivity(new Intent(this, UserListActivity.class));
                     break;
                 case R.id.nav_add_workout:
-                    startActivity(new Intent(MainActivity.this, AddWorkoutActivity.class));
+                    startActivity(new Intent(this, AddWorkoutActivity.class));
                     break;
                 case R.id.nav_show_workouts:
-                    startActivity(new Intent(MainActivity.this, ShowWorkoutsActivity.class));
+                    startActivity(new Intent(this, ShowWorkoutsActivity.class));
                     break;
                 case R.id.nav_logout:
                     Log.i("MENU_DRAWER_TAG", "Logout item clicked");
