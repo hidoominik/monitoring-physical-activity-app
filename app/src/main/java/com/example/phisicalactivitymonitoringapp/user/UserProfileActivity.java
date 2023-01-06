@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phisicalactivitymonitoringapp.DeleteAccountActivity;
 import com.example.phisicalactivitymonitoringapp.EditDataActivity;
+import com.example.phisicalactivitymonitoringapp.EditPasswordActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private TextView height;
     private Button deleteButton;
     private Button editButton;
+    private Button editPasswordButton;
 
     private DatabaseReference mDatabase;
 
@@ -47,8 +49,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         height = findViewById(R.id.height_value);
         deleteButton = findViewById(R.id.go_to_delete_button);
         editButton = findViewById(R.id.go_to_edit_button);
+        editPasswordButton = findViewById(R.id.go_to_change_password_button);
         editButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
+        editPasswordButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -90,10 +94,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(this, DeleteAccountActivity.class));
         }
         else if (v.getId() == R.id.go_to_edit_button) {
-            Intent intent = new Intent(this, EditDataActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            startActivity(new Intent(this, EditDataActivity.class));
+        }
+        else if (v.getId() == R.id.go_to_change_password_button) {
+            startActivity(new Intent(this, EditPasswordActivity.class));
         }
     }
 }
