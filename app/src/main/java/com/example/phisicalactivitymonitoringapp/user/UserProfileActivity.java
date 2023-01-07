@@ -40,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private String anotherUserEmail;
     private TextView usernameTextView;
     private TextView weight;
     private TextView height;
@@ -72,8 +73,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        anotherUserEmail = getIntent().getSerializableExtra("user").toString();
+
         if (currentUser != null) {
-            Query emailQuery = mDatabase.orderByChild("email").equalTo(currentUser.getEmail());
+
+            String emailForShowUserDetails = anotherUserEmail!=null ? anotherUserEmail : currentUser.getEmail();
+
+            Query emailQuery = mDatabase.orderByChild("email").equalTo(emailForShowUserDetails);
             emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
