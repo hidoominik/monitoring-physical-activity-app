@@ -17,6 +17,7 @@
             android:id="@+id/userListUsernameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/userListViewDetailsButton"
             android:padding="8dp"
             android:text="Username"
             android:textColor="@color/black"
@@ -27,9 +28,21 @@
             android:id="@+id/userListDescriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/userListViewDetailsButton"
             android:layout_below="@id/userListUsernameTextView"
             android:padding="5dp"
             android:text="User Description"
             android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/userListViewDetailsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/userListDescriptionTextView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginVertical="10dp"
+            android:text="View Details" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

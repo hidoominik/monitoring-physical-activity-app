@@ -98,11 +98,6 @@ public class UserListActivity extends AppCompatActivity {
         });
     }
 
-//    private void filterList(String newText) {
-//        userList = this.userList.stream().filter(user -> user.getUsername().toLowerCase().contains(newText)).collect(Collectors.toList());
-//    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

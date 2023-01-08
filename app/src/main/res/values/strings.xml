@@ -36,4 +36,8 @@
     <string name="profile">Profile</string>
     <string name="add_workout">Add Workout</string>
     <string name="show_workouts">Show Workouts</string>
+    <string name="subscribe">SUBSCRIBE</string>
+    <string name="unsubscribe">UNSUBSCRIBE</string>
+    <string name="subscribed">SUBSCRIBED</string>
+    <string name="unsubscribed">UNSUBSCRIBED</string>
 </resources>
