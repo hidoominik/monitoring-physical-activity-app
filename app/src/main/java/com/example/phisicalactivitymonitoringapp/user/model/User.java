@@ -2,6 +2,9 @@ package com.example.phisicalactivitymonitoringapp.user.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @IgnoreExtraProperties
 public class User {
 
@@ -13,6 +16,11 @@ public class User {
 
     String height;
 
+    Set<String> watchingUsers;
+
+    Set<String> watchedUsers;
+
+
     public User() {
     }
 
@@ -21,6 +29,8 @@ public class User {
         this.email = email;
         this.weight = weight;
         this.height = height;
+        this.watchingUsers = new HashSet<>();
+        this.watchedUsers = new HashSet<>();
     }
 
     public String getUsername() {

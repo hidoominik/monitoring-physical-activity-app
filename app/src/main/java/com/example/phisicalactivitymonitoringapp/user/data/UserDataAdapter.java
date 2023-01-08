@@ -45,7 +45,7 @@ public class UserDataAdapter extends RecyclerView.Adapter<UserDataAdapter.ViewHo
         holder.userDescriptionTextView.setText(model.getEmail());
         holder.viewDetailsButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, UserProfileActivity.class);
-            intent.putExtra("user", model.getEmail());
+            intent.putExtra("username", model.getUsername());
             context.startActivity(intent);
         });
     }

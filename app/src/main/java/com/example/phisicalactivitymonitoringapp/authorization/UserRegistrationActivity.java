@@ -17,6 +17,7 @@ import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -142,15 +143,18 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                 editTextUsername.requestFocus();
             } else {
                 mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(authTaskSucceeded -> mDatabase.child(username).setValue(new User(username, email, null, null))
-                                .addOnSuccessListener(databaseTaskSucceeded -> {
-                                    finishProgressBarWithToast("User has been registered successfully");
-                                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).sendEmailVerification();
-                                    startActivity(new Intent(UserRegistrationActivity.this, UserLoginActivity.class));
-                                }).addOnFailureListener(databaseTaskFailed -> {
+                        .addOnSuccessListener(authTaskSucceeded -> {
+                            Objects.requireNonNull(mAuth.getCurrentUser()).updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(username).build());
+                            mDatabase.child(username).setValue(new User(username, email, null, null))
+                                    .addOnSuccessListener(databaseTaskSucceeded -> {
+                                        finishProgressBarWithToast("User has been registered successfully");
+                                        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).sendEmailVerification();
+                                        startActivity(new Intent(UserRegistrationActivity.this, UserLoginActivity.class));
+                                    }).addOnFailureListener(databaseTaskFailed -> {
 //                                TODO: Dodać usuwanie usera z FirebaseAuth przy niepowodzeniu utworzenia go w RealtimeDatabase
-                                    finishProgressBarWithToast(databaseTaskFailed.getLocalizedMessage());
-                                }))
+                                        finishProgressBarWithToast(databaseTaskFailed.getLocalizedMessage());
+                                    });
+                        })
                         .addOnFailureListener(authTaskFailed -> finishProgressBarWithToast(authTaskFailed.getLocalizedMessage()));
             }
         });
