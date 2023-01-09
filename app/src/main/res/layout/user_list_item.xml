@@ -43,6 +43,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
             android:layout_marginVertical="10dp"
-            android:text="View Details" />
+            android:text="Details" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

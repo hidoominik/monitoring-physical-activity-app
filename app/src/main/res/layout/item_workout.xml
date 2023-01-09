@@ -16,64 +16,64 @@
 
     <TextView
         android:id="@+id/workout_name"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/workout_place"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_name" />
 
     <TextView
         android:id="@+id/workout_date"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_place" />
 
     <TextView
         android:id="@+id/workout_startTime"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_date" />
 
     <TextView
         android:id="@+id/workout_endTime"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_startTime" />
 
     <Button
         android:id="@+id/edit_button"
         android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:backgroundTint="#03dac5"
         android:text="EDIT"
         android:textColor="#ffffff"
@@ -86,8 +86,8 @@
         android:id="@+id/delete_button"
         android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#E31B93"
         android:text="@string/delete"
         android:textColor="#ffffff"
@@ -95,6 +95,78 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_button" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_button"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/workoutName_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:text="@string/nazwa"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/workout_name"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/workoutPlace_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="center_vertical"
+        android:text="@string/miejsce"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/workout_place"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutName_label" />
+
+    <TextView
+        android:id="@+id/workoutDate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/data"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/workout_date"
+        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutPlace_label" />
+
+    <TextView
+        android:id="@+id/workoutStart_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/od"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/workout_startTime"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutDate_label" />
+
+    <TextView
+        android:id="@+id/workoutPlace_label4"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/until"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/workout_endTime"
+        app:layout_constraintHorizontal_bias="0.367"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutStart_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
