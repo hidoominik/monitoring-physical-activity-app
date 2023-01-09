@@ -1,4 +1,4 @@
-package com.example.phisicalactivitymonitoringapp.user.data;
+package com.example.phisicalactivitymonitoringapp.user.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;

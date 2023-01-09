@@ -2,7 +2,11 @@ package com.example.phisicalactivitymonitoringapp.user.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @IgnoreExtraProperties
@@ -16,9 +20,9 @@ public class User {
 
     String height;
 
-    Set<String> watchingUsers;
+    Map<String, Object> watchingUsers;
 
-    Set<String> watchedUsers;
+    Map<String, Object> watchedUsers;
 
 
     public User() {
@@ -29,8 +33,8 @@ public class User {
         this.email = email;
         this.weight = weight;
         this.height = height;
-        this.watchingUsers = new HashSet<>();
-        this.watchedUsers = new HashSet<>();
+        this.watchingUsers = new HashMap<>();
+        this.watchedUsers = new HashMap<>();
     }
 
     public String getUsername() {
@@ -63,5 +67,21 @@ public class User {
 
     public void setHeight(String height) {
         this.height = height;
+    }
+
+    public Map<String, Object> getWatchingUsers() {
+        return watchingUsers;
+    }
+
+    public void setWatchingUsers(Map<String, Object> watchingUsers) {
+        this.watchingUsers = watchingUsers;
+    }
+
+    public Map<String, Object> getWatchedUsers() {
+        return watchedUsers;
+    }
+
+    public void setWatchedUsers(Map<String, Object> watchedUsers) {
+        this.watchedUsers = watchedUsers;
     }
 }
