@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
+import com.example.phisicalactivitymonitoringapp.user.SubscribedUsersActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
 import com.github.mikephil.charting.charts.BarChart;
@@ -174,14 +175,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.nav_search:
-                    Log.i("MENU_DRAWER_TAG", "Search item clicked");
-                    //logic for search
+                    startActivity(new Intent(this, UserListActivity.class));
                     break;
                 case R.id.nav_profile:
                     startActivity(new Intent(this, UserProfileActivity.class));
                     break;
                 case R.id.nav_user_list:
-                    startActivity(new Intent(this, UserListActivity.class));
+                    startActivity(new Intent(this, SubscribedUsersActivity.class));
                     break;
                 case R.id.nav_add_workout:
                     startActivity(new Intent(this, AddWorkoutActivity.class));
