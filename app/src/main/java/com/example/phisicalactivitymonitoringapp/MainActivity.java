@@ -28,6 +28,7 @@ import com.example.phisicalactivitymonitoringapp.authorization.services.AuthServ
 import com.example.phisicalactivitymonitoringapp.user.SubscribedUsersActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
+import com.example.phisicalactivitymonitoringapp.workouts.ShowStatsActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -188,6 +189,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.nav_show_workouts:
                     startActivity(new Intent(this, ShowWorkoutsActivity.class));
+                    break;
+                case R.id.nav_show_stats:
+                    startActivity(new Intent(this, ShowStatsActivity.class));
                     break;
                 case R.id.nav_logout:
                     Log.i("MENU_DRAWER_TAG", "Logout item clicked");

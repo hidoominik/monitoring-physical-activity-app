@@ -25,6 +25,7 @@ import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.ShowWorkoutsActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
+import com.example.phisicalactivitymonitoringapp.workouts.ShowStatsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,6 +55,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private Button editPasswordButton;
     private Button subscribeButtton;
     private Button unsubscribeButton;
+    private Button showStatsButton;
 
     private DatabaseReference mDatabase;
 
@@ -75,6 +77,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         anotherUserUsername = getIntent().getSerializableExtra("username") != null
                 ? getIntent().getSerializableExtra("username").toString()
                 : null;
+
+        showStatsButton = findViewById(R.id.userStatsButton);
+        showStatsButton.setOnClickListener(this);
 
         loadUserData();
 
@@ -139,6 +144,14 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         }
         else if (v.getId() == R.id.userProfileUnsubscribeButton) {
             unsubscribeUser();
+        }
+        else if (v.getId() == R.id.userStatsButton) {
+            String usernameForShowUserDetails = anotherUserUsername !=null ?
+                    anotherUserUsername : currentUser.getDisplayName();
+
+            Intent intent = new Intent(this, ShowStatsActivity.class);
+            intent.putExtra("username", usernameForShowUserDetails);
+            startActivity(intent);
         }
     }
 
@@ -251,7 +264,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         if (currentUser != null) {
 
             String usernameForShowUserDetails = anotherUserUsername !=null ? anotherUserUsername : currentUser.getDisplayName();
-            System.out.println(usernameForShowUserDetails);
+
             Query emailQuery = mDatabase.orderByChild("username").equalTo(usernameForShowUserDetails);
             emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
