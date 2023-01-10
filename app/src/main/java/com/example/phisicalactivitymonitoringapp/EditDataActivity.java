@@ -51,10 +51,6 @@ public class EditDataActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.save_changed_data_button) {
             saveChangedData();
-            Intent intent = new Intent(this, UserProfileActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
         }
     }
 
@@ -93,5 +89,10 @@ public class EditDataActivity extends AppCompatActivity implements View.OnClickL
                 }
             });
         }
+
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

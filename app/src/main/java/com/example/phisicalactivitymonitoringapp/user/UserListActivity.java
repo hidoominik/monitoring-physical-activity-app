@@ -26,6 +26,8 @@ import com.example.phisicalactivitymonitoringapp.authorization.services.AuthServ
 import com.example.phisicalactivitymonitoringapp.user.adapters.UserDataAdapter;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -139,6 +141,8 @@ public class UserListActivity extends AppCompatActivity {
 
     private void buildRecyclerView() {
 
+        String currentUserUsername = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
         userList = new ArrayList<>();
 
         Query usernameQuery = users.orderByChild("username");
@@ -147,7 +151,7 @@ public class UserListActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     User user = child.getValue(User.class);
-                    if (user != null) {
+                    if (user != null && !user.getUsername().equals(currentUserUsername)) {
                         userList.add(user);
                     }
                 }

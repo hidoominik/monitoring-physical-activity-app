@@ -250,8 +250,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private void loadUserData() {
         if (currentUser != null) {
 
-            String usernameForShowUserDetails = anotherUserUsername !=null ? anotherUserUsername : currentUser.getEmail();
-
+            String usernameForShowUserDetails = anotherUserUsername !=null ? anotherUserUsername : currentUser.getDisplayName();
+            System.out.println(usernameForShowUserDetails);
             Query emailQuery = mDatabase.orderByChild("username").equalTo(usernameForShowUserDetails);
             emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -263,12 +263,12 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                             usernameTextView.setText(user.getUsername());
 
                             if (user.getWeight() == null)
-                                weight.setText("No data");
+                                weight.setText(R.string.no_data_info);
                             else
                                 weight.setText(user.getWeight());
 
                             if (user.getWeight() == null)
-                                height.setText("No data");
+                                height.setText(R.string.no_data_info);
                             else
                                 height.setText(user.getHeight());
                         }
