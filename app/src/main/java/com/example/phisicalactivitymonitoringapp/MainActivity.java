@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -417,6 +418,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         chart.invalidate();
         chart.clear();
+        chart.setBackgroundColor(Color.WHITE);
 
         chart.setDragEnabled(false);
         chart.setScaleEnabled(false);
