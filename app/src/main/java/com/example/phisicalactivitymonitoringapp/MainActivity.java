@@ -418,14 +418,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         chart.invalidate();
         chart.clear();
-        chart.setBackgroundColor(Color.WHITE);
-
         chart.setDragEnabled(false);
         chart.setScaleEnabled(false);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(theDates));
         xAxis.setLabelCount(7, true);
+
+        xAxis.setTextColor(Color.WHITE);
+        chart.getAxisLeft().setTextColor(Color.WHITE);
+        chart.getAxisRight().setTextColor(Color.WHITE);
+        chart.getLegend().setTextColor(Color.WHITE);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < theDates.size(); i++) {
@@ -435,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BarDataSet dataSet = new BarDataSet(entries, "Weekly Data");
         BarData data = new BarData(dataSet);
         chart.setData(data);
-
+        data.setValueTextColor(Color.WHITE);
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
         chart.getDescription().setEnabled(false);
     }
