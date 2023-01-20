@@ -56,4 +56,5 @@
     <string name="max_workout_time_hours_minutes">Longest workout time (minutes)</string>
     <string name="last_workout_date">Last workout date</string>
     <string name="first_workout_date">First workout date</string>
+    <string name="your_stats">Your stats</string>
 </resources>
