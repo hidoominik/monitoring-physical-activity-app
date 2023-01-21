@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Physical Activity Monitoring App</string>
+    <string name="app_name">PAM App</string>
     <string name="password">Password</string>
     <string name="email_address">Email Address</string>
     <string name="ourappname_description">Physical Activity Monitoring</string>
@@ -49,4 +49,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data_found">No data found</string>
     <string name="no_data_info">No data</string>
+    <string name="show_stats">Show stats</string>
+    <string name="all_workouts_number">All workouts number</string>
+    <string name="all_workouts_time_hours_minutes">All workouts time (minutes)</string>
+    <string name="stats">Stats</string>
+    <string name="max_workout_time_hours_minutes">Longest workout time (minutes)</string>
+    <string name="last_workout_date">Last workout date</string>
+    <string name="first_workout_date">First workout date</string>
+    <string name="your_stats">Your stats</string>
 </resources>

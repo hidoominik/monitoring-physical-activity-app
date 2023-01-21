@@ -39,7 +39,7 @@ tools:context=".MainActivity">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
-            android:layout_width="243dp"
+            android:layout_width="280dp"
             android:layout_height="428dp"
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
