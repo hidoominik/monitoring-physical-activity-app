@@ -1,5 +1,8 @@
 package com.example.phisicalactivitymonitoringapp;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.phisicalactivitymonitoringapp.databinding.ActivityShowWorkoutsBinding;
+import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ShowWorkoutsActivity extends AppCompatActivity {
+public class ShowWorkoutsActivity extends DrawerBaseActivity {
 
     private List<Workout> workoutList;
     private List<String> keyList;
@@ -52,14 +57,10 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
 
     WorkoutsAdapter adapter;
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_workouts);
+        setContentView(ActivityShowWorkoutsBinding.inflate(getLayoutInflater()).getRoot());
 
         workoutList = new ArrayList<>();
         keyList = new ArrayList<>();
@@ -70,7 +71,7 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
         users = database.getReference("Users");
         workouts = database.getReference("Workouts");
 
-        rvWorkouts = (RecyclerView) findViewById(R.id.rvWorkouts);
+        rvWorkouts = findViewById(R.id.rvWorkouts);
 
         adapter = new WorkoutsAdapter(workoutList, keyList);
 
@@ -79,40 +80,6 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
 
         rvWorkouts.setLayoutManager(new LinearLayoutManager(this));
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.navigationView);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    Log.i("MENU_DRAWER_TAG", "Home item clicked");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
-                case R.id.nav_search:
-                    Log.i("MENU_DRAWER_TAG", "Search item clicked");
-                    //logic for search
-                    break;
-                case R.id.nav_profile:
-                    startActivity(new Intent(this, UserProfileActivity.class));
-                    break;
-                case R.id.nav_user_list:
-                    startActivity(new Intent(this, UserListActivity.class));
-                    break;
-                case R.id.nav_add_workout:
-                    startActivity(new Intent(this, AddWorkoutActivity.class));
-                    break;
-                case R.id.nav_show_workouts:
-                    startActivity(new Intent(this, ShowWorkoutsActivity.class));
-                    break;
-                case R.id.nav_logout:
-                    Log.i("MENU_DRAWER_TAG", "Logout item clicked");
-                    signOut();
-                    break;
-            }
-            return true;
-        });
     }
 
     public void createWorkoutsList() {
@@ -153,14 +120,6 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -8,7 +8,7 @@
         <item   android:title="@string/account">
             <menu>
                 <item android:id="@+id/nav_profile" android:title="@string/profile" android:icon="@drawable/search_icon"/>
-                <item android:id="@+id/nav_user_list" android:title="User List" android:icon="@drawable/search_icon"/>
+                <item android:id="@+id/nav_user_list" android:title="@string/user_list" android:icon="@drawable/search_icon"/>
                 <item android:id="@+id/nav_add_workout" android:title="@string/add_workout" android:icon="@drawable/search_icon"/>
                 <item android:id="@+id/nav_show_workouts" android:title="@string/show_workouts" android:icon="@drawable/search_icon"/>
                 <item android:id="@+id/nav_show_stats" android:title="@string/show_stats" android:icon="@drawable/search_icon"/>

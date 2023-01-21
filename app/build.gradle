@@ -9,12 +9,16 @@ android {
 
     defaultConfig {
         applicationId "com.example.phisicalactivitymonitoringapp"
-        minSdk 24
+        minSdk 29
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 
     buildTypes {

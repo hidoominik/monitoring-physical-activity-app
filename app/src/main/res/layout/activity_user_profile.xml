@@ -172,18 +172,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/navigationView"
-        app:headerLayout="@layout/header_nav"
-        app:menu="@menu/menu_nav"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start">
-
-
-    </com.google.android.material.navigation.NavigationView>
-
     </androidx.drawerlayout.widget.DrawerLayout>
 
 
