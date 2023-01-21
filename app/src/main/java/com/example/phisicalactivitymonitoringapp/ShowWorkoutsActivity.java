@@ -1,19 +1,5 @@
 package com.example.phisicalactivitymonitoringapp;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.phisicalactivitymonitoringapp.databinding.ActivityShowWorkoutsBinding;
-import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,12 +9,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
-import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
-import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivityShowWorkoutsBinding;
+import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.example.phisicalactivitymonitoringapp.workouts.Workout;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

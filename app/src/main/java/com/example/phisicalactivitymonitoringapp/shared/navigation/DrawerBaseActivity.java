@@ -55,36 +55,37 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_drawer_base);
-//    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
             case R.id.nav_home:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
             case R.id.nav_search:
                 startActivity(new Intent(this, UserListActivity.class));
+                finish();
                 break;
             case R.id.nav_profile:
                 startActivity(new Intent(this, UserProfileActivity.class));
+                finish();
                 break;
             case R.id.nav_user_list:
                 startActivity(new Intent(this, SubscribedUsersActivity.class));
+                finish();
                 break;
             case R.id.nav_add_workout:
                 startActivity(new Intent(this, AddWorkoutActivity.class));
+                finish();
                 break;
             case R.id.nav_show_workouts:
                 startActivity(new Intent(this, ShowWorkoutsActivity.class));
+                finish();
                 break;
             case R.id.nav_show_stats:
                 startActivity(new Intent(this, ShowStatsActivity.class));
+                finish();
                 break;
             case R.id.nav_logout:
                 signOut();
@@ -95,7 +96,9 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
     private void signOut() {
         AuthService.signOut();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finishAffinity();
-        startActivity(getIntent());
+        startActivity(intent);
     }
 }

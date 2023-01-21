@@ -27,10 +27,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".user.SubscribedUsersActivity"
@@ -38,10 +34,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".EditPasswordActivity"
@@ -52,14 +44,11 @@
         </activity>
         <activity
             android:name=".user.UserListActivity"
-            android:exported="true">
+            android:exported="true"
+            android:tag="ivPerson">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".EditDataActivity"
@@ -81,10 +70,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".AddWorkoutActivity"
@@ -92,10 +77,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".authorization.UserLoginActivity"
@@ -117,10 +98,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".authorization.UserRegistrationActivity"
