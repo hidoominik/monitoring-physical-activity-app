@@ -3,6 +3,7 @@ package com.example.phisicalactivitymonitoringapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +13,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
@@ -157,6 +161,48 @@ public class ShowWorkoutsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.actionSearch);
+
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    private void filter(String text) {
+
+        List<Workout> filtered = new ArrayList<>();
+
+        for (Workout workout : workoutList) {
+            if (workout.getName().toLowerCase().contains(text.toLowerCase())) {
+                filtered.add(workout);
+            }
+        }
+
+        if (filtered.isEmpty()) {
+            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.filterList(filtered);
+        }
     }
 
     private void signOut() {

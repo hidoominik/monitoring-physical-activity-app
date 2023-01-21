@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.phisicalactivitymonitoringapp.user.model.User;
 import com.example.phisicalactivitymonitoringapp.workouts.Workout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHolder> {
@@ -123,5 +125,10 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         Intent intent = new Intent(v.getContext(), AddWorkoutActivity.class);
         intent.putExtra("key", key);
         v.getContext().startActivity(intent);
+    }
+
+    public void filterList(List<Workout> filtered) {
+        mWorkout = filtered;
+        notifyDataSetChanged();
     }
 }
