@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,11 +24,20 @@ import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
 import com.example.phisicalactivitymonitoringapp.workouts.ShowStatsActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class DrawerBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+    private StorageReference mStorage;
+
+    private ImageFilterView profileImage;
+
+    private TextView loginTV;
 
     @Override
     public void setContentView(View view){
@@ -52,7 +62,17 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
                 getSupportActionBar().setTitle(view.getTag().toString());
             }
         }
+        mStorage = FirebaseStorage.getInstance().getReference("Avatars").child(AuthService.getUserLogin() + ".png");
 
+        View headerLayout = navigationView.getHeaderView(0);
+        profileImage = headerLayout.findViewById(R.id.profileImage);
+        loginTV = headerLayout.findViewById(R.id.username);
+
+        loginTV.setText(AuthService.getUserLogin());
+
+        mStorage.getDownloadUrl().addOnSuccessListener(downloadUrl -> {
+            Picasso.with(DrawerBaseActivity.this).load(downloadUrl.toString()).into(profileImage);
+        });
     }
 
     @Override

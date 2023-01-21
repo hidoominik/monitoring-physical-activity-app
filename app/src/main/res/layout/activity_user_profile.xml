@@ -7,24 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".user.UserProfileActivity">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/profileImage"
+        <RelativeLayout
+            android:id="@+id/avatarPreview"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="36dp"
-
-            android:src="@drawable/user_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:orientation="vertical"
+            android:padding="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="36dp">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user_placeholder"/>
+
+            <Button
+                android:id="@+id/editAvatarButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:visibility="gone"
+                android:background="@drawable/edit_icon"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/username"
@@ -37,19 +54,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/avatarPreview" />
 
         <Button
             android:id="@+id/userStatsButton"
             android:layout_width="300dp"
             android:layout_height="70dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#3F51B5"
             android:text="@string/show_stats"
             android:textColor="#ffffff"
             android:textSize="23sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/height_value" />
 
         <Button
             android:id="@+id/userProfileSubscribeButton"
