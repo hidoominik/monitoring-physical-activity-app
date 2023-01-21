@@ -5,31 +5,20 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
-import com.example.phisicalactivitymonitoringapp.user.SubscribedUsersActivity;
-import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
-import com.example.phisicalactivitymonitoringapp.user.UserProfileActivity;
-import com.example.phisicalactivitymonitoringapp.workouts.ShowStatsActivity;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivityMainBinding;
+import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -47,7 +36,6 @@ import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.material.navigation.NavigationView;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -68,12 +56,9 @@ import java.util.concurrent.TimeUnit;
 //janrobak112@gmail.com
 //robak112
 
-@RequiresApi(api = Build.VERSION_CODES.Q)
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+public class MainActivity extends DrawerBaseActivity implements View.OnClickListener {
+
     private TextView stepNumber;
     private TextView previousDate;
     private TextView nextDate;
@@ -102,14 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Integer> totalAvgSteps = new ArrayList<>();
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         if (!AuthService.ifUserIsLoggedIn()) {
@@ -118,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             finish();
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (hasRuntimePermissions()) {
                     if (!GoogleSignIn.hasPermissions(
                             GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
@@ -135,21 +111,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     requestRuntimePermissions();
                 }
-            }
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(ActivityMainBinding.inflate(getLayoutInflater()).getRoot());
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.navigationView);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, R.string.nav_open, R.string.nav_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
         stepNumber = (TextView) findViewById(R.id.stepsNumber);
         previousDate = findViewById(R.id.previous_date);
         nextDate = findViewById(R.id.next_date);
@@ -163,44 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
 
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //TODO: Trzeba pomyśleć jak byśmy chcieli to nav menu dodawać do innych aktywności,
-        // dziedziczymy chamsko po MainActivity,
-        // czy może jakiś lepszy sposob na wstrzykiwanie tego menu?
-        //Navigation logic:
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    Log.i("MENU_DRAWER_TAG", "Home item clicked");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
-                case R.id.nav_search:
-                    startActivity(new Intent(this, UserListActivity.class));
-                    break;
-                case R.id.nav_profile:
-                    startActivity(new Intent(this, UserProfileActivity.class));
-                    break;
-                case R.id.nav_user_list:
-                    startActivity(new Intent(this, SubscribedUsersActivity.class));
-                    break;
-                case R.id.nav_add_workout:
-                    startActivity(new Intent(this, AddWorkoutActivity.class));
-                    break;
-                case R.id.nav_show_workouts:
-                    startActivity(new Intent(this, ShowWorkoutsActivity.class));
-                    break;
-                case R.id.nav_show_stats:
-                    startActivity(new Intent(this, ShowStatsActivity.class));
-                    break;
-                case R.id.nav_logout:
-                    Log.i("MENU_DRAWER_TAG", "Logout item clicked");
-                    signOut();
-                    break;
-            }
-            return true;
-        });
     }
 
     @Override

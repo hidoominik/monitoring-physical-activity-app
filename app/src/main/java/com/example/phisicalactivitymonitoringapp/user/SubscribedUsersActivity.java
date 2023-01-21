@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.phisicalactivitymonitoringapp.R;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivityAddWorkoutBinding;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivitySubscribedUsersBinding;
+import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import com.example.phisicalactivitymonitoringapp.user.adapters.UserDataAdapter;
 import com.example.phisicalactivitymonitoringapp.user.adapters.ViewPagerAdapter;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
@@ -30,7 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class SubscribedUsersActivity extends AppCompatActivity {
+public class SubscribedUsersActivity extends DrawerBaseActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -40,7 +43,7 @@ public class SubscribedUsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subscribed_users);
+        setContentView(ActivitySubscribedUsersBinding.inflate(getLayoutInflater()).getRoot());
 
         database = FirebaseDatabase.getInstance();
         users = database.getReference("Users");

@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.phisicalactivitymonitoringapp.R;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivityShowStatsBinding;
+import com.example.phisicalactivitymonitoringapp.databinding.ActivitySubscribedUsersBinding;
+import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +31,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public class ShowStatsActivity extends AppCompatActivity {
+public class ShowStatsActivity extends DrawerBaseActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -56,7 +59,7 @@ public class ShowStatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_stats);
+        setContentView(ActivityShowStatsBinding.inflate(getLayoutInflater()).getRoot());
 
         users = FirebaseDatabase.getInstance().getReference("Users");
         workouts = FirebaseDatabase.getInstance().getReference("Workouts");
@@ -67,22 +70,22 @@ public class ShowStatsActivity extends AppCompatActivity {
                 ? getIntent().getSerializableExtra("username").toString()
                 : null;
 
-        allWorkoutsNumber = (TextView) findViewById(R.id.all_workouts);
-        firstWorkoutDate = (TextView) findViewById(R.id.first_workout);
-        lastWorkoutDate = (TextView) findViewById(R.id.last_workout);
-        longestWorkoutTime = (TextView) findViewById(R.id.max_workout_time);
+        allWorkoutsNumber = findViewById(R.id.all_workouts);
+        firstWorkoutDate = findViewById(R.id.first_workout);
+        lastWorkoutDate = findViewById(R.id.last_workout);
+        longestWorkoutTime = findViewById(R.id.max_workout_time);
 
-        allWorkoutsNumber2 = (TextView) findViewById(R.id.all_workouts2);
-        firstWorkoutDate2 = (TextView) findViewById(R.id.first_workout2);
-        lastWorkoutDate2 = (TextView) findViewById(R.id.last_workout2);
-        longestWorkoutTime2 = (TextView) findViewById(R.id.max_workout_time2);
+        allWorkoutsNumber2 = findViewById(R.id.all_workouts2);
+        firstWorkoutDate2 = findViewById(R.id.first_workout2);
+        lastWorkoutDate2 = findViewById(R.id.last_workout2);
+        longestWorkoutTime2 = findViewById(R.id.max_workout_time2);
 
-        yourStats = (TextView) findViewById(R.id.your_stats);
+        yourStats = findViewById(R.id.your_stats);
 
-        allWorkoutsNumberLabel2 = (TextView) findViewById(R.id.all_workouts_label2);
-        firstWorkoutDateLabel2 = (TextView) findViewById(R.id.first_workout_label2);
-        lastWorkoutDateLabel2 = (TextView) findViewById(R.id.last_workout_label2);
-        longestWorkoutTimeLabel2 = (TextView) findViewById(R.id.max_workout_time_label2);
+        allWorkoutsNumberLabel2 = findViewById(R.id.all_workouts_label2);
+        firstWorkoutDateLabel2 = findViewById(R.id.first_workout_label2);
+        lastWorkoutDateLabel2 = findViewById(R.id.last_workout_label2);
+        longestWorkoutTimeLabel2 = findViewById(R.id.max_workout_time_label2);
 
         String usernameForShowUserDetails = anotherUserUsername != null ?
                 anotherUserUsername : currentUser.getDisplayName();
