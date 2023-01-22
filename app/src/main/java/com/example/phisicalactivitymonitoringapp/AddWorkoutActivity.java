@@ -144,8 +144,18 @@ public class AddWorkoutActivity extends DrawerBaseActivity implements View.OnCli
         String workoutPlaceValue = workoutPlace.getText().toString().trim();
         String workoutDateValue = workoutDate.getDayOfMonth() + "-" + (workoutDate.getMonth() + 1)
                 + "-" + workoutDate.getYear();
-        String startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
-        String endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+
+        String startTimeValue;
+        if (startTime.getMinute() < 10)
+            startTimeValue = startTime.getHour() + ":0" + startTime.getMinute();
+        else
+            startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
+
+        String endTimeValue;
+        if (endTime.getMinute() < 10)
+            endTimeValue = endTime.getHour() + ":0" + endTime.getMinute();
+        else
+            endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
 
         if (workoutNameValue.isEmpty()) {
             workoutNameLabel.setError("Workout name is required");
@@ -202,8 +212,19 @@ public class AddWorkoutActivity extends DrawerBaseActivity implements View.OnCli
         String workoutPlaceValue = workoutPlace.getText().toString().trim();
         String workoutDateValue = workoutDate.getDayOfMonth() + "-" + (workoutDate.getMonth() + 1)
                 + "-" + workoutDate.getYear();
-        String startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
-        String endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+
+        String startTimeValue;
+        if (startTime.getMinute() < 10)
+            startTimeValue = startTime.getHour() + ":0" + startTime.getMinute();
+        else
+            startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
+
+        String endTimeValue;
+        if (endTime.getMinute() < 10)
+            endTimeValue = endTime.getHour() + ":0" + endTime.getMinute();
+        else
+            endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+
 
         if (workoutNameValue.isEmpty()) {
             workoutNameLabel.setError("Workout name is required");
