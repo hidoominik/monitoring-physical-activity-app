@@ -127,8 +127,9 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.ViewHo
         v.getContext().startActivity(intent);
     }
 
-    public void filterList(List<Workout> filtered) {
-        mWorkout = filtered;
+    public void filterList(List<Workout> filtered, List<String> keyList) {
+        this.mWorkout = filtered;
+        this.mKey = keyList;
         notifyDataSetChanged();
     }
 }

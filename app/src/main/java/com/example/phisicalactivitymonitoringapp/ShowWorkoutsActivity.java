@@ -140,17 +140,19 @@ public class ShowWorkoutsActivity extends DrawerBaseActivity {
     private void filter(String text) {
 
         List<Workout> filtered = new ArrayList<>();
+        List<String> newKeyList = new ArrayList<>();
 
         for (Workout workout : workoutList) {
             if (workout.getName().toLowerCase().contains(text.toLowerCase())) {
                 filtered.add(workout);
+                newKeyList.add(workout.getKey());
             }
         }
 
         if (filtered.isEmpty()) {
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
-            adapter.filterList(filtered);
+            adapter.filterList(filtered, newKeyList);
         }
     }
 
