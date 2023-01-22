@@ -10,176 +10,227 @@
 
     <TextView
         android:id="@+id/all_workouts_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:textStyle="bold"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
         android:text="@string/all_workouts_number"
-        app:layout_constraintBottom_toTopOf="@+id/first_workout_label"
-        app:layout_constraintEnd_toStartOf="@+id/all_workouts"
-        app:layout_constraintHorizontal_bias="0.387"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stats" />
 
     <TextView
         android:id="@+id/all_workouts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
-        app:layout_constraintBottom_toTopOf="@+id/first_workout"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toEndOf="@+id/all_workouts_label"
+        app:layout_constraintTop_toBottomOf="@+id/stats" />
 
     <TextView
         android:id="@+id/max_workout_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
-        app:layout_constraintBottom_toTopOf="@+id/your_stats"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toEndOf="@+id/max_workout_time_label"
+        app:layout_constraintTop_toBottomOf="@+id/last_workout" />
 
     <TextView
         android:id="@+id/stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="@string/stats"
-        app:layout_constraintBottom_toTopOf="@+id/all_workouts_label"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.785" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/max_workout_time_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/max_workout_time_hours_minutes"
-        app:layout_constraintBottom_toTopOf="@+id/your_stats"
-        app:layout_constraintEnd_toStartOf="@+id/max_workout_time" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_workout_label" />
 
     <TextView
         android:id="@+id/first_workout_label"
-        android:layout_width="111dp"
-        android:layout_height="24dp"
+        android:layout_width="160dp"
+        android:textStyle="bold"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/first_workout_date"
-        app:layout_constraintBottom_toTopOf="@+id/last_workout_label"
-        app:layout_constraintEnd_toStartOf="@+id/first_workout"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_workouts_label" />
 
     <TextView
         android:id="@+id/last_workout_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:textStyle="bold"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/last_workout_date"
-        app:layout_constraintBottom_toTopOf="@+id/max_workout_time_label"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_workout_label" />
 
     <TextView
         android:id="@+id/first_workout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
-        app:layout_constraintBottom_toTopOf="@+id/last_workout"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toEndOf="@+id/first_workout_label"
+        app:layout_constraintTop_toBottomOf="@+id/all_workouts" />
 
     <TextView
         android:id="@+id/last_workout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
-        app:layout_constraintBottom_toTopOf="@+id/max_workout_time"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toEndOf="@+id/last_workout_label"
+        app:layout_constraintTop_toBottomOf="@+id/first_workout" />
 
     <TextView
         android:id="@+id/your_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/your_stats"
-        app:layout_constraintBottom_toTopOf="@+id/all_workouts_label2"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/max_workout_time" />
 
     <TextView
         android:id="@+id/all_workouts_label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
         android:text="@string/all_workouts_number"
-        app:layout_constraintBottom_toTopOf="@+id/first_workout_label2"
-        app:layout_constraintEnd_toStartOf="@+id/all_workouts2"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_stats" />
 
     <TextView
         android:id="@+id/first_workout_label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/first_workout_date"
-        app:layout_constraintBottom_toTopOf="@+id/last_workout_label2"
-        app:layout_constraintEnd_toStartOf="@+id/first_workout2"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_workouts_label2" />
 
     <TextView
         android:id="@+id/max_workout_time_label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
         android:text="@string/max_workout_time_hours_minutes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/max_workout_time2"
-        app:layout_constraintHorizontal_bias="0.392"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_workout_label2" />
 
     <TextView
         android:id="@+id/max_workout_time2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="60dp"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toEndOf="@+id/max_workout_time_label2"
         app:layout_constraintTop_toBottomOf="@+id/last_workout2" />
 
     <TextView
         android:id="@+id/all_workouts2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/your_stats" />
 
     <TextView
         android:id="@+id/first_workout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toEndOf="@+id/first_workout_label2"
         app:layout_constraintTop_toBottomOf="@+id/all_workouts2" />
 
     <TextView
         android:id="@+id/last_workout_label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
         android:text="@string/last_workout_date"
-        app:layout_constraintBottom_toTopOf="@+id/max_workout_time_label2"
-        app:layout_constraintEnd_toStartOf="@+id/last_workout2"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_workout_label2" />
 
     <TextView
         android:id="@+id/last_workout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/no_data_info"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toEndOf="@+id/last_workout_label2"
         app:layout_constraintTop_toBottomOf="@+id/first_workout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
