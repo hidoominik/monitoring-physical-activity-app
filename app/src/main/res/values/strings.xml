@@ -8,7 +8,7 @@
     <string name="logout">Logout</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
-    <string name="stepsLabel">Steps:</string>
+    <string name="stepsLabel">Todays steps:</string>
     <string name="appbaner">PAM</string>
     <string name="delete">DELETE</string>
     <string name="back_to_login">Back to login</string>
