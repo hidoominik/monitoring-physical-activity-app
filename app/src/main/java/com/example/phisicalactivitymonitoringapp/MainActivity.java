@@ -117,6 +117,14 @@ public class MainActivity extends DrawerBaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!AuthService.ifUserIsLoggedIn()) {
+            Intent intent = new Intent(MainActivity.this, UserLoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(ActivityMainBinding.inflate(getLayoutInflater()).getRoot());
 
         stepNumber = (TextView) findViewById(R.id.stepsNumber);
