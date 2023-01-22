@@ -76,9 +76,6 @@ public class DeleteAccountActivity extends AppCompatActivity implements View.OnC
             if (currentUser != null) {
                 authCredential = EmailAuthProvider.getCredential(Objects.requireNonNull(currentUser.getEmail()), passwordValue);
 
-                System.out.println(currentUser.getEmail());
-                System.out.println(passwordValue);
-
                 currentUser.reauthenticate(authCredential).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         currentUser.delete().addOnCompleteListener(task1 -> {
