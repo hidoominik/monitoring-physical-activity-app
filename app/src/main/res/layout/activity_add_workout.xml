@@ -155,10 +155,10 @@
             android:layout_width="300dp"
             android:layout_height="70dp"
             android:text="EDIT"
-            android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
-
+            android:backgroundTint="#03dac5"
+            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
