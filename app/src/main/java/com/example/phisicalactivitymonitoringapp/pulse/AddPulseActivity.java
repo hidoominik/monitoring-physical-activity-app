@@ -75,7 +75,7 @@ public class AddPulseActivity extends DrawerBaseActivity implements View.OnClick
         String pulse_value = pulse.getText().toString().trim();
 
         if (Integer.parseInt(pulse_value) < 20 || Integer.parseInt(pulse_value) > 400) {
-            pulse.setError("Wrong pulse value");
+            pulse.setError("Are you still alive?!");
             pulse.requestFocus();
             return;
         }

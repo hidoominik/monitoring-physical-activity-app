@@ -92,14 +92,16 @@ public class ShowSleepStatsActivity extends DrawerBaseActivity {
 
                         long max = Collections.max(sleepTime);
                         long min = Collections.min(sleepTime);
+
+                        long averageVal = 0;
+                        if (average.isPresent())
+                            averageVal = Math.round(average.getAsDouble());
+
                         maxSleep.setText(new DecimalFormat("#").format(max / 60) + " h "
                                 + new DecimalFormat("#").format(max % 60));
+
                         minSleep.setText(new DecimalFormat("#").format(min / 60) + " h "
                                 + new DecimalFormat("#").format(min % 60));
-
-                        double averageVal = 0;
-                        if (average.isPresent())
-                            averageVal = average.getAsDouble();
 
                         averageSleep.setText(new DecimalFormat("#").format(averageVal / 60) + " h "
                                 + new DecimalFormat("#").format(averageVal % 60));
