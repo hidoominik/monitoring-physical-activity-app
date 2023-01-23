@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -77,7 +78,8 @@ public class ShowPulseStatsActivity extends DrawerBaseActivity {
 
                         maxPulse.setText(String.valueOf(Collections.max(pulseValueList)));
                         minPulse.setText(String.valueOf(Collections.min(pulseValueList)));
-                        averagePulse.setText(String.valueOf(average.isPresent() ? average.getAsDouble() : 0));
+                        averagePulse.setText(new DecimalFormat("0.00").format(
+                                average.isPresent() ? average.getAsDouble() : 0));
                     }
                     else {
                         maxPulse.setText(R.string.no_data_info);
