@@ -1,7 +1,5 @@
 package com.example.phisicalactivitymonitoringapp;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +12,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.example.phisicalactivitymonitoringapp.databinding.ActivityShowWorkoutsBinding;
 import com.example.phisicalactivitymonitoringapp.shared.navigation.DrawerBaseActivity;
 import com.example.phisicalactivitymonitoringapp.user.model.User;
@@ -153,17 +150,6 @@ public class ShowWorkoutsActivity extends DrawerBaseActivity {
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
             adapter.filterList(filtered, newKeyList);
-        }
-    }
-
-    private void signOut() {
-        AuthService.signOut();
-        finishAffinity();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Intent intent = new Intent(ShowWorkoutsActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
         }
     }
 }

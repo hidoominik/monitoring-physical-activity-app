@@ -18,6 +18,7 @@ import com.example.phisicalactivitymonitoringapp.AddWorkoutActivity;
 import com.example.phisicalactivitymonitoringapp.MainActivity;
 import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.ShowWorkoutsActivity;
+import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
 import com.example.phisicalactivitymonitoringapp.user.SubscribedUsersActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
@@ -116,7 +117,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
     private void signOut() {
         AuthService.signOut();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, UserLoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finishAffinity();
         startActivity(intent);
