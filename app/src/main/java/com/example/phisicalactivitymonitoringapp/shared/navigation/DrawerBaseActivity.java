@@ -20,6 +20,7 @@ import com.example.phisicalactivitymonitoringapp.R;
 import com.example.phisicalactivitymonitoringapp.ShowWorkoutsActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.UserLoginActivity;
 import com.example.phisicalactivitymonitoringapp.authorization.services.AuthService;
+import com.example.phisicalactivitymonitoringapp.pulse.PulseActivity;
 import com.example.phisicalactivitymonitoringapp.sleep.SleepActivity;
 import com.example.phisicalactivitymonitoringapp.user.SubscribedUsersActivity;
 import com.example.phisicalactivitymonitoringapp.user.UserListActivity;
@@ -111,6 +112,10 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_show_sleep:
                 startActivity(new Intent(this, SleepActivity.class));
+                finish();
+                break;
+            case R.id.nav_show_pulse:
+                startActivity(new Intent(this, PulseActivity.class));
                 finish();
                 break;
             case R.id.nav_logout:

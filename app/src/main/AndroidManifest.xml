@@ -21,6 +21,20 @@
         android:theme="@style/Theme.PhisicalActivityMonitoringApp"
         tools:targetApi="31">
         <activity
+            android:name=".pulse.PulseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".pulse.AddPulseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".sleep.AddSleepActivity"
             android:exported="false">
             <meta-data

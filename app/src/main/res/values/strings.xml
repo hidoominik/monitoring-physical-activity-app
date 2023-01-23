@@ -59,4 +59,5 @@
     <string name="first_workout_date">First workout date</string>
     <string name="your_stats">Your stats</string>
     <string name="sleep">Sleep</string>
+    <string name="show_pulse">Show pulse</string>
 </resources>

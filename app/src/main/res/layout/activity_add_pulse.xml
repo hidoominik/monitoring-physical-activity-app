@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pulse.AddPulseActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".pulse.AddPulseActivity">
+
+        <TextView
+            android:id="@+id/pulse_time"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:gravity="center_vertical"
+            android:text="Time"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/pulse_time_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pulse_date" />
+
+        <TextView
+            android:id="@+id/pulse_value"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:gravity="center_vertical"
+            android:text="@string/date"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/pulse_value_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pulse_date"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:gravity="center_vertical"
+            android:text="@string/date"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/pulse_date_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pulse_value" />
+
+        <EditText
+            android:id="@+id/pulse_value_input"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:gravity="center_vertical"
+            android:hint="Add pulse value"
+            android:inputType="number"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TimePicker
+            android:id="@+id/pulse_time_input"
+            android:layout_width="240dp"
+            android:layout_height="140dp"
+            android:ems="10"
+            android:timePickerMode="spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pulse_date_input" />
+
+        <DatePicker
+            android:id="@+id/pulse_date_input"
+            android:layout_width="240dp"
+            android:layout_height="140dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pulse_value_input" />
+
+        <Button
+            android:id="@+id/add_pulse_button"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:text="@string/create"
+            android:textColor="#ffffff"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pulse_time_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
