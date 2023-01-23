@@ -143,6 +143,11 @@ public class ShowStatsActivity extends DrawerBaseActivity {
 
                             long diffInMinutes = Duration.between(startTime, endTime).toMinutes();
 
+                            if (startTime.compareTo(endTime) > 0)
+                                diffInMinutes = Duration.between(startTime, LocalTime.parse("23:59")).toMinutes()
+                                        + Duration.between(LocalTime.parse("00:00"), endTime).toMinutes()
+                                        + Duration.between(LocalTime.parse("00:00"), LocalTime.parse("00:01")).toMinutes();
+
                             workoutsTime.add(diffInMinutes);
                         }
 
