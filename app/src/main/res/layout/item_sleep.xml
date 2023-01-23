@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="40dp"
+    android:background="@color/browser_actions_bg_grey"
+    android:bottomLeftRadius="7dp"
+    android:bottomRightRadius="7dp"
+    android:topLeftRadius="7dp"
+    android:topRightRadius="7dp"
+    app:circularflow_radiusInDP="7dp">
+
+    <TextView
+        android:id="@+id/sleep_date"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/sleep_startTime"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleep_date"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/sleep_endTime"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleep_startTime"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/sleepDate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:gravity="center_vertical"
+        android:text="@string/data"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sleep_date"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/sleepStart_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/od"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sleep_startTime"
+        app:layout_constraintTop_toBottomOf="@+id/sleepDate_label"
+        app:layout_constraintHorizontal_bias="0.37" />
+
+    <TextView
+        android:id="@+id/endStart_label"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/until"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sleep_endTime"
+        app:layout_constraintTop_toBottomOf="@+id/sleepStart_label"
+        app:layout_constraintHorizontal_bias="0.367" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
