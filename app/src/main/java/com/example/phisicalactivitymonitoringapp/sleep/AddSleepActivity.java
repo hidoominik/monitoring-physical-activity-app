@@ -56,6 +56,9 @@ public class AddSleepActivity extends DrawerBaseActivity implements View.OnClick
         startTime = findViewById(R.id.startSleepTimeInput);
         endTime = findViewById(R.id.endSleepTimeInput);
 
+        startTime.setIs24HourView(true);
+        endTime.setIs24HourView(true);
+
         createButton = findViewById(R.id.addSleepButton);
         createButton.setOnClickListener(this);
     }
@@ -71,17 +74,31 @@ public class AddSleepActivity extends DrawerBaseActivity implements View.OnClick
         String sleepDateValue = sleepDate.getDayOfMonth() + "-" + (sleepDate.getMonth() + 1)
                 + "-" + sleepDate.getYear();
 
-        String startTimeValue;
+        String minute;
         if (startTime.getMinute() < 10)
-            startTimeValue = startTime.getHour() + ":0" + startTime.getMinute();
+            minute = ":0" + startTime.getMinute();
         else
-            startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
+            minute = ":" + startTime.getMinute();
 
-        String endTimeValue;
-        if (endTime.getMinute() < 10)
-            endTimeValue = endTime.getHour() + ":0" + endTime.getMinute();
+        String hour;
+        if (startTime.getHour() < 10)
+            hour = "0" + startTime.getHour();
         else
-            endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+            hour = String.valueOf(startTime.getHour());
+
+        String startTimeValue = hour + minute;
+
+        if (endTime.getMinute() < 10)
+            minute = ":0" + endTime.getMinute();
+        else
+            minute = ":" + endTime.getMinute();
+
+        if (endTime.getHour() < 10)
+            hour = "0" + endTime.getHour();
+        else
+            hour = String.valueOf(endTime.getHour());
+
+        String endTimeValue = hour + minute;
 
         if (currentUser != null) {
             Query emailQuery = users.orderByChild("email").equalTo(currentUser.getEmail());

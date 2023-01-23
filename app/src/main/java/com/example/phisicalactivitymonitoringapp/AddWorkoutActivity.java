@@ -70,6 +70,9 @@ public class AddWorkoutActivity extends DrawerBaseActivity implements View.OnCli
         startTime = findViewById(R.id.startTimeInput);
         endTime = findViewById(R.id.endTimeInput);
 
+        startTime.setIs24HourView(true);
+        endTime.setIs24HourView(true);
+
         workoutNameLabel = findViewById(R.id.workoutName);
         workoutPlaceLabel = findViewById(R.id.workoutPlace);
 
@@ -145,17 +148,31 @@ public class AddWorkoutActivity extends DrawerBaseActivity implements View.OnCli
         String workoutDateValue = workoutDate.getDayOfMonth() + "-" + (workoutDate.getMonth() + 1)
                 + "-" + workoutDate.getYear();
 
-        String startTimeValue;
+        String minute;
         if (startTime.getMinute() < 10)
-            startTimeValue = startTime.getHour() + ":0" + startTime.getMinute();
+            minute = ":0" + startTime.getMinute();
         else
-            startTimeValue = startTime.getHour() + ":" + startTime.getMinute();
+            minute = ":" + startTime.getMinute();
 
-        String endTimeValue;
-        if (endTime.getMinute() < 10)
-            endTimeValue = endTime.getHour() + ":0" + endTime.getMinute();
+        String hour;
+        if (startTime.getHour() < 10)
+            hour = "0" + startTime.getHour();
         else
-            endTimeValue = endTime.getHour() + ":" + endTime.getMinute();
+            hour = String.valueOf(startTime.getHour());
+
+        String startTimeValue = hour + minute;
+
+        if (endTime.getMinute() < 10)
+            minute = ":0" + endTime.getMinute();
+        else
+            minute = ":" + endTime.getMinute();
+
+        if (endTime.getHour() < 10)
+            hour = "0" + endTime.getHour();
+        else
+            hour = String.valueOf(endTime.getHour());
+
+        String endTimeValue = hour + minute;
 
         if (workoutNameValue.isEmpty()) {
             workoutNameLabel.setError("Workout name is required");

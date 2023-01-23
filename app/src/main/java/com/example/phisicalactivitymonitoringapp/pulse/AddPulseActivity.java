@@ -58,6 +58,8 @@ public class AddPulseActivity extends DrawerBaseActivity implements View.OnClick
         time = findViewById(R.id.pulse_time_input);
         pulse = findViewById(R.id.pulse_value_input);
 
+        time.setIs24HourView(true);
+
         createButton = findViewById(R.id.add_pulse_button);
         createButton.setOnClickListener(this);
     }
@@ -81,11 +83,19 @@ public class AddPulseActivity extends DrawerBaseActivity implements View.OnClick
         String sleepDateValue = date.getDayOfMonth() + "-" + (date.getMonth() + 1)
                 + "-" + date.getYear();
 
-        String startTimeValue;
+        String minute;
         if (time.getMinute() < 10)
-            startTimeValue = time.getHour() + ":0" + time.getMinute();
+            minute = ":0" + time.getMinute();
         else
-            startTimeValue = time.getHour() + ":" + time.getMinute();
+            minute = ":" + time.getMinute();
+
+        String hour;
+        if (time.getHour() < 10)
+            hour = "0" + time.getHour();
+        else
+            hour = String.valueOf(time.getHour());
+
+        String startTimeValue = hour + minute;
 
         if (currentUser != null) {
             Query emailQuery = users.orderByChild("email").equalTo(currentUser.getEmail());

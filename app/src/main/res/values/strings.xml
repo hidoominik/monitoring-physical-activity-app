@@ -59,5 +59,11 @@
     <string name="first_workout_date">First workout date</string>
     <string name="your_stats">Your stats</string>
     <string name="sleep">Sleep</string>
-    <string name="show_pulse">Show pulse</string>
+    <string name="show_pulse">Pulse</string>
+    <string name="shortest_sleep_minutes">Shortest sleep</string>
+    <string name="longest_sleep_minutes">Longest sleep</string>
+    <string name="average_sleep_minutes">Average sleep</string>
+    <string name="max_pulse">Max pulse</string>
+    <string name="min_pulse">Min pulse</string>
+    <string name="average_pulse">Average pulse</string>
 </resources>

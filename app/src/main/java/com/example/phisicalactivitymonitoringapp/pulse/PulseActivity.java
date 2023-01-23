@@ -41,6 +41,7 @@ public class PulseActivity extends DrawerBaseActivity implements View.OnClickLis
     PulseAdapter adapter;
 
     private Button addNewPulseDataButton;
+    private Button showPulseStatsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class PulseActivity extends DrawerBaseActivity implements View.OnClickLis
 
         addNewPulseDataButton = findViewById(R.id.new_pulse_data_button);
         addNewPulseDataButton.setOnClickListener(this);
+
+        showPulseStatsButton = findViewById(R.id.pulse_stats_button);
+        showPulseStatsButton.setOnClickListener(this);
 
         pulseList = new ArrayList<>();
 
@@ -75,6 +79,10 @@ public class PulseActivity extends DrawerBaseActivity implements View.OnClickLis
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }
+        else if (v.getId() == R.id.pulse_stats_button) {
+            Intent intent = new Intent(PulseActivity.this, ShowPulseStatsActivity.class);
+            startActivity(intent);
         }
     }
 

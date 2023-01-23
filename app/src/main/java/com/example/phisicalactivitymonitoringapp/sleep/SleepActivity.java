@@ -41,6 +41,7 @@ public class SleepActivity extends DrawerBaseActivity implements View.OnClickLis
     SleepAdapter adapter;
 
     private Button addNewSleepDataButton;
+    private Button showSleepStatsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class SleepActivity extends DrawerBaseActivity implements View.OnClickLis
 
         addNewSleepDataButton = findViewById(R.id.new_sleep_data_button);
         addNewSleepDataButton.setOnClickListener(this);
+
+        showSleepStatsButton = findViewById(R.id.sleep_stats_button);
+        showSleepStatsButton.setOnClickListener(this);
 
         sleepList = new ArrayList<>();
 
@@ -75,6 +79,10 @@ public class SleepActivity extends DrawerBaseActivity implements View.OnClickLis
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }
+        else if (v.getId() == R.id.sleep_stats_button) {
+            Intent intent = new Intent(SleepActivity.this, ShowSleepStatsActivity.class);
+            startActivity(intent);
         }
     }
 
