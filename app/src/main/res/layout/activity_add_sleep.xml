@@ -16,11 +16,13 @@
             android:id="@+id/startSleepTime"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:text="@string/start_time"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/startSleepTimeInput"
+            app:layout_constraintHorizontal_bias="0.645"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sleepDate" />
 
@@ -28,11 +30,13 @@
             android:id="@+id/endSleepTime"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:text="@string/end_time"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/endSleepTimeInput"
+            app:layout_constraintHorizontal_bias="0.553"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startSleepTime" />
 
@@ -40,6 +44,7 @@
             android:id="@+id/sleepDate"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:gravity="center_vertical"
             android:text="@string/date"
@@ -87,12 +92,13 @@
             android:id="@+id/addSleepButton"
             android:layout_width="300dp"
             android:layout_height="70dp"
+            android:layout_marginTop="60dp"
             android:text="@string/create"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/endSleepTimeInput" />
     </androidx.constraintlayout.widget.ConstraintLayout>

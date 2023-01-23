@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:layout_margin="40dp"
-    android:background="#dac503"
+    android:background="#AAF0EE"
     android:bottomLeftRadius="30dp"
     android:bottomRightRadius="7dp"
     android:topLeftRadius="7dp"
