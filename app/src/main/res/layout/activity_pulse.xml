@@ -8,44 +8,46 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
 
         <Button
             android:id="@+id/new_pulse_data_button"
             android:layout_width="300dp"
             android:layout_height="70dp"
+            android:layout_marginTop="28dp"
             android:text="@string/create"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@+id/rvPulse" />
 
         <Button
             android:id="@+id/pulse_stats_button"
             android:layout_width="300dp"
             android:layout_height="70dp"
-            android:layout_marginTop="552dp"
+            android:layout_marginTop="24dp"
             android:text="@string/stats"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.369"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/new_pulse_data_button" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPulse"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="417dp"
+            android:layout_height="481dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_pulse_data_button"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

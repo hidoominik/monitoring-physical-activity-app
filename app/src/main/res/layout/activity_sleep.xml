@@ -14,38 +14,35 @@
             android:id="@+id/new_sleep_data_button"
             android:layout_width="300dp"
             android:layout_height="70dp"
+            android:layout_marginTop="24dp"
             android:text="@string/create"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/rvSleep" />
 
         <Button
             android:id="@+id/sleep_stats_button"
             android:layout_width="300dp"
             android:layout_height="70dp"
-            android:layout_marginTop="380dp"
-            android:layout_marginEnd="76dp"
+            android:layout_marginTop="24dp"
             android:text="@string/stats"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/new_sleep_data_button" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSleep"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="412dp"
+            android:layout_height="493dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_sleep_data_button"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

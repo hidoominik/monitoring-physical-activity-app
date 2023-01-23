@@ -12,8 +12,8 @@
                 <item android:id="@+id/nav_add_workout" android:title="@string/add_workout" android:icon="@drawable/ic_add_workout"/>
                 <item android:id="@+id/nav_show_workouts" android:title="@string/show_workouts" android:icon="@drawable/ic_workout_list"/>
                 <item android:id="@+id/nav_show_stats" android:title="@string/show_stats" android:icon="@drawable/ic_stats"/>
-                <item android:id="@+id/nav_show_sleep" android:title="@string/sleep" android:icon="@drawable/ic_stats"/>
-                <item android:id="@+id/nav_show_pulse" android:title="@string/show_pulse" android:icon="@drawable/ic_stats"/>
+                <item android:id="@+id/nav_show_sleep" android:title="@string/sleep" android:icon="@drawable/ic_sleep"/>
+                <item android:id="@+id/nav_show_pulse" android:title="@string/show_pulse" android:icon="@drawable/ic_pulse"/>
                 <item android:id="@+id/nav_logout"  android:title="@string/logout" android:icon="@drawable/logout_icon"/>
             </menu>
         </item>
